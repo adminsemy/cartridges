@@ -1,0 +1,8 @@
+test:
+    path: /api
+    controller: App\Controller\HomeController::test
+blog_list:
+    path: /{req}
+    controller: App\Controller\HomeController::index
+    requirements:
+        req: ".*"
