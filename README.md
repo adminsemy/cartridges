@@ -1,5 +1,6 @@
 # Getting Started with Create React App
 
+Запустить php -S http://localhost:9001 public\index.php
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
