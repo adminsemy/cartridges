@@ -1,23 +1,25 @@
-import logo from './logo.svg';
 import './App.css';
+import {Routes, Route} from 'react-router-dom';
+import { CartridgesCount } from './pages/CartridgesCount';
+import { CartridgesOrder } from './pages/CartridgesOrder';
+import { NotFound } from './pages/NotFound';
+import Navigation from './components/Navigation';
 
-export const App = () => {
+function App()  {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div>
+        <Navigation />
+        <div className='container-fluid'>
+          <div className='raw'>
+            <Routes>
+              <Route path="/" element={<CartridgesCount />} />
+              <Route path="/order" element={<CartridgesOrder />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </div>
+        </div>
+      </div>
   );
 }
+
+export default App
