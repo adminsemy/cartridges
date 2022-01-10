@@ -4,12 +4,12 @@ namespace App\Controller;
 
 class HomeController
 {
-    public static function index()
+    public function index()
     {
         include('build/index.html');
     }
 
-    public static function test()
+    public function test($parametres)
     {
         echo 'API';
     }

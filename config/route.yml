@@ -1,7 +1,12 @@
 test:
-    path: /api
+    path: /test/{id}/{rr}
     controller: App\Controller\HomeController::test
-blog_list:
+    methods: GET
+apiCartridges:
+    path: /api/cartridges
+    controller: App\Controller\Api\CartridgeController::cartridges
+    methods: GET
+all:
     path: /{req}
     controller: App\Controller\HomeController::index
     requirements:

@@ -10,6 +10,7 @@
         "symfony/http-kernel": "^6.0",
         "symfony/config": "^6.0",
         "symfony/yaml": "^6.0",
-        "symfony/routing": "^6.0"
+        "symfony/routing": "^6.0",
+        "doctrine/orm": "^2.10"
     }
 }
