@@ -10,20 +10,20 @@ $isDevMode = true;
 $proxyDir = null;
 $cache = null;
 $useSimpleAnnotationReader = false;
-$config = Setup::createAnnotationMetadataConfiguration(array(__DIR__."/app/Model"), $isDevMode, $proxyDir, $cache, $useSimpleAnnotationReader);
+$config = Setup::createAnnotationMetadataConfiguration([__DIR__ . '/app/Model'], $isDevMode, $proxyDir, $cache, $useSimpleAnnotationReader);
 // or if you prefer yaml or XML
 // $config = Setup::createXMLMetadataConfiguration(array(__DIR__."/config/xml"), $isDevMode);
 // $config = Setup::createYAMLMetadataConfiguration(array(__DIR__."/config/yaml"), $isDevMode);
 
 // database configuration parameters
-$conn = array(
+$conn = [
     'driver' => 'pdo_mysql',
-    'host' => 'localhost',
+    'host' => 'localhost:3306',
     'dbname' => 'sit',
     'user' => 'root',
     'password' => 'example',
-    'charset' => 'utf8'
-);
+    'charset' => 'utf8',
+];
 
 // obtaining the entity manager
 $entityManager = EntityManager::create($conn, $config);
