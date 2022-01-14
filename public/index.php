@@ -3,7 +3,6 @@ if (preg_match('/\.(?:js|css|jpeg|gif|png|ico|svg)$/', $_SERVER["REQUEST_URI"]))
     return false;    // сервер возвращает файлы напрямую.
 }
 require_once __DIR__.'/../vendor/autoload.php';
-require_once __DIR__.'/../bootstrap.php';
 
 
 use Symfony\Component\Config\FileLocator;

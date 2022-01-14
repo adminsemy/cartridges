@@ -1,5 +1,8 @@
 <?php
 // cli-config.php
-require_once "bootstrap.php";
 
-return \Doctrine\ORM\Tools\Console\ConsoleRunner::createHelperSet($entityManager);
+use App\Config\Doctrine;
+
+require_once "vendor/autoload.php";
+
+return \Doctrine\ORM\Tools\Console\ConsoleRunner::createHelperSet(Doctrine::entityManager());

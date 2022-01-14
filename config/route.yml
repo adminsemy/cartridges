@@ -1,5 +1,5 @@
 test:
-    path: /test/{id}/{rr}
+    path: /test
     controller: App\Controller\HomeController::test
     methods: GET
 apiCartridges:
