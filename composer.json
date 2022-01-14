@@ -13,6 +13,7 @@
         "symfony/routing": "^6.0",
         "doctrine/orm": "^2.10",
         "doctrine/dbal": "^3.2",
-        "symfony/cache": "^6.0"
+        "symfony/cache": "^6.0",
+        "doctrine/annotations": "^1.13"
     }
 }
