@@ -24,10 +24,10 @@ class Cartridge
      * @JoinColumn(name="id_printer", referencedColumnName="id")
      * @var NamePrinter
      */
-    private $printer;
+    private $namePrinter;
 
     /**
-     * @ORM\ManyToOne(targetEnity="NameCartridge", inversedBy="id")
+     * @ORM\ManyToOne(targetEntity="NameCartridge")
      * @JoinColumn(name="id_cartridge", referencedColumnName="id")
      * @var NameCartridge
      */
@@ -39,14 +39,19 @@ class Cartridge
         $this->cartridge = new ArrayCollection(); 
     }
 
-    public function setPrinter(NamePrinter $printer)
+    public function getId()
     {
-        return $this->printer = $printer;
+        return $this->id;
     }
 
-    public function getPrinter()
+    public function setNamePrinter(NamePrinter $printer)
     {
-        return $this->printer;
+        return $this->namePrinter = $printer;
+    }
+
+    public function getNamePrinter()
+    {
+        return $this->namePrinter;
     }
 
     public function setCartridge(NameCartridge $cartridge)
@@ -57,10 +62,5 @@ class Cartridge
     public function getCartridge()
     {
         return $this->cartridge;
-    }
-
-    public function getId()
-    {
-        return $this->id;
     }
 }
