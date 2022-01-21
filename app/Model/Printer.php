@@ -68,6 +68,12 @@ class Printer
      */
     private $printerName;
 
+    /**
+     * @ORM\OneToMany(targetEntity="HistoryOrder", mappedBy="printer")
+     * @var HistoryOrder[]
+     */
+    private $historyOrder;
+
     public function __construct()
     {
         $this->printerName = new ArrayCollection(); 
@@ -156,5 +162,10 @@ class Printer
     public function getViewOnOff()
     {
         return $this->view_on_off;
+    }
+
+    public function assignToHistoryOrder(HistoryOrder $historyOrder)
+    {
+        return $this->historyOrder[] = $historyOrder;
     }
 }
