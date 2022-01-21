@@ -25,30 +25,33 @@ class NamePrinter
     private $name;
 
     /**
-     * @ORM\Column(type="integer", length=1, options={"default" : 1})
+     * @ORM\Column(name="view_on_off", 
+     *                  type="integer",
+     *                  length=1,
+     *                  options={"default" : 1})
      * @var int
      */
-    private $view_on_off;
+    private $viewOnOff;
 
     /**
-     * @ORM\OneToMany(targetEntity="Printer", mappedBy="printerName")
-     * @var Printer[]
+     * @ORM\OneToMany(targetEntity="Cartridge", mappedBy="namePrinter")
+     * @var Cartridge[]
      */
-    private $printers;
+    private $cartridges;
 
     public function __construct()
     {
-        $this->printers = new ArrayCollection();
-    }
-
-    public function assignToPrinter(Printer $printer)
-    {
-        $this->printers[] = $printer;
+        $this->cartridges = new ArrayCollection();
     }
 
     public function getId()
     {
         return $this->id;
+    }
+    
+    public function assignToCartridge(Cartridge $cartridge)
+    {
+        $this->cartridges[] = $cartridge;
     }
 
     public function getName()
@@ -73,11 +76,12 @@ class NamePrinter
 
     public function setViewOnOff(int $viewOnOff = 1)
     {
-        $this->view_on_off = $viewOnOff;
+        $this->viewOnOff = $viewOnOff;
     }
 
     public function getViewOnOff()
     {
         return $this->view_on_off;
     }
+
 }

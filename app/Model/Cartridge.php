@@ -20,24 +20,18 @@ class Cartridge
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="NamePrinter", inversedBy="id")
+     * @ORM\ManyToOne(targetEntity="NamePrinter", inversedBy="cartridges")
      * @JoinColumn(name="id_printer", referencedColumnName="id")
      * @var NamePrinter
      */
     private $namePrinter;
 
     /**
-     * @ORM\ManyToOne(targetEntity="NameCartridge")
+     * @ORM\ManyToOne(targetEntity="NameCartridge", inversedBy="id")
      * @JoinColumn(name="id_cartridge", referencedColumnName="id")
      * @var NameCartridge
      */
     private $cartridge;
-
-    public function __construct()
-    {
-        $this->printer = new ArrayCollection(); 
-        $this->cartridge = new ArrayCollection(); 
-    }
 
     public function getId()
     {
