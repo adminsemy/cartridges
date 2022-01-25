@@ -1,36 +1,29 @@
 <?php
 namespace App\Model;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\DBAL\Schema\Table;
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\GeneratedValue;
+use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToOne;
 
-/**
- * @ORM\Entity
- * @ORM\Table(name="cartridges")
- */
+#[Entity()]
+#[Table(name: "cartridges")]
 class Cartridge
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue
-     * @var int
-     */
+    #[Id]
+    #[Column(type: 'integer')]
+    #[GeneratedValue]
     private $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="NamePrinter", inversedBy="cartridges")
-     * @JoinColumn(name="id_printer", referencedColumnName="id")
-     * @var NamePrinter
-     */
+    #[ManyToOne(targetEntity: NamePrinter::class, inversedBy: 'cartridges')]
+    #[JoinColumn(name: 'id_printer', referencedColumnName: 'id')]
     private $namePrinter;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="NameCartridge", inversedBy="id")
-     * @JoinColumn(name="id_cartridge", referencedColumnName="id")
-     * @var NameCartridge
-     */
+    #[ManyToOne(targetEntity: NameCartridge::class, inversedBy: 'id')]
+    #[JoinColumn(name: 'id_cartridge', referencedColumnName: 'id')]
     private $cartridge;
 
     public function getId()

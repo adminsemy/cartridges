@@ -39,7 +39,7 @@ class HistoryOrder
      */
     private $date;
 
-    public function __construct(\DateTimeImmutable $date = new DateTimeImmutable())
+    public function __construct(\DateTimeImmutable $date)
     {
         $this->date = $date;                
     }
