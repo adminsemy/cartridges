@@ -3,7 +3,8 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/"
-        }
+        },
+        "psr-0": {"": "app/"}
     },
     "require": {
         "symfony/http-foundation": "^6.0",
