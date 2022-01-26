@@ -3,118 +3,142 @@ namespace App\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\GeneratedValue;
+use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\Table;
 
-/**
- * @ORM\Entity
- * @ORM\Table(name="name_cartridges")
- */
+#[Entity()]
+#[Table(name: 'name_cartridges')]
 class NameCartridge
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue
-     * @var int
-     */
-    private $id;
+    #[Id]
+    #[Column(type: 'integer')]
+    #[GeneratedValue()]
+    private int $id;
 
-    /**
-     * @ORM\Column(name="brand", type="string", length=50, nullable=true)
-     * @var string
-     */
-    private $brand;
+    #[Column(
+        name: 'brand',
+        type: 'string',
+        length: 50,
+        nullable: true
+    )]
+    private string $brand;
 
-    /**
-     * @ORM\Column(name="name_excel", type="string", length=100, nullable=true)
-     * @var string
-     */
-    private $nameExcel;
+    #[Column(
+        name: 'name_excel',
+        type: 'string',
+        length: 100,
+        nullable: true
+    )]
+    private string $nameExcel;
 
-    /**
-     * @ORM\Column(name="description", type="string", length=255, nullable=true)
-     * @var string
-     */
-    private $description;
+    #[Column(
+        name: 'description',
+        type: 'string',
+        length: 255,
+        nullable: true
+    )]
+    private string $description;
 
-    /**
-     * @ORM\Column(name="producer", type="string", length=50, nullable=true)
-     * @var string
-     */
-    private $producer;
+    #[Column(
+        name: 'producer',
+        type: 'string',
+        length: 50,
+        nullable: true
+    )]
+    private string $producer;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="ColorCartridge", inversedBy="id")
-     * @JoinColumn(name="id_color", referencedColumnName="id")
-     * @var ColorCartridge
-     */
-    private $colorCartridge;
+    #[ManyToOne(targetEntity: ColorCartridge::class, inversedBy: 'id')]
+    #[JoinColumn(name: 'id_color', referencedColumnName: 'id')]
+    private ColorCartridge $colorCartridge;
 
-    /** 
-    * @ORM\Column(name="all", type="integer", length=11, options={"default" : 1})
-    * @var int
-    */
-    private $all = 1;
+    #[Column(name: 'all', type: 'integer', length: 11, options: ['default' => 1])]
+    private int $all = 1;
 
-    /** 
-    * @ORM\Column(name="minimum", type="integer", length=11, options={"default" : 0, "unsigned" : true})
-    * @var int
-    */
-    private $minimum = 0;
+    #[Column(
+        name: 'minimum',
+        type: 'integer',
+        length: 11,
+        options: ['default' => 0, 'unsigned' => true]
+    )]
+    private int $minimum = 0;
 
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getColorCartridge()
+    public function getColorCartridge(): ColorCartridge
     {
         return $this->colorCartridge;
     }
 
-    public function setColorCartridge(ColorCartridge $colorCartridge)
+    public function setColorCartridge(ColorCartridge $colorCartridge): void
     {
-        return $this->colorCartridge = $colorCartridge;
+        $this->colorCartridge = $colorCartridge;
     }
 
-    public function getBrand()
+    public function getBrand(): string
     {
         return $this->brand;
     }
 
-    public function setBrand(string $brand)
+    public function setBrand(string $brand): void
     {
-        return $this->brand = $brand;
+        $this->brand = $brand;
     }
 
-    public function getNameExcel()
+    public function getNameExcel(): string
     {
         return $this->nameExcel;
     }
 
-    public function setNameExcel(string $nameExcel)
+    public function setNameExcel(string $nameExcel): void
     {
-        return $this->nameExcel = $nameExcel;
+        $this->nameExcel = $nameExcel;
     }
 
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
     }
 
-    public function setDescription(string $description)
+    public function setDescription(string $description): void
     {
-        return $this->description = $description;
+        $this->description = $description;
     }
 
-    public function getProducer()
+    public function getProducer(): string
     {
         return $this->producer;
     }
 
-    public function setProducer(string $producer)
+    public function setProducer(string $producer): void
     {
-        return $this->producer = $producer;
+        $this->producer = $producer;
     }
     
+    public function getAll(): int
+    {
+        return $this->all;
+    }
+
+    public function setAll(int $all): void
+    {
+        $this->all = $all;
+    }   
+    
+    public function getMinimum(): int
+    {
+        return $this->minimum;
+    }
+
+    public function setMinimum(int $minimum): void
+    {
+        $this->minimum = $minimum;
+    }   
 }

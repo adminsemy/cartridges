@@ -16,37 +16,37 @@ class Cartridge
     #[Id]
     #[Column(type: 'integer')]
     #[GeneratedValue]
-    private $id;
+    private int $id;
 
     #[ManyToOne(targetEntity: NamePrinter::class, inversedBy: 'cartridges')]
     #[JoinColumn(name: 'id_printer', referencedColumnName: 'id')]
-    private $namePrinter;
+    private NamePrinter $namePrinter;
 
     #[ManyToOne(targetEntity: NameCartridge::class, inversedBy: 'id')]
     #[JoinColumn(name: 'id_cartridge', referencedColumnName: 'id')]
-    private $cartridge;
+    private NameCartridge $cartridge;
 
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function setNamePrinter(NamePrinter $printer)
+    public function setNamePrinter(NamePrinter $printer): void
     {
-        return $this->namePrinter = $printer;
+        $this->namePrinter = $printer;
     }
 
-    public function getNamePrinter()
+    public function getNamePrinter(): NamePrinter
     {
         return $this->namePrinter;
     }
 
-    public function setCartridge(NameCartridge $cartridge)
+    public function setCartridge(NameCartridge $cartridge): void
     {
-        return $this->cartridge = $cartridge;
+        $this->cartridge = $cartridge;
     }
 
-    public function getCartridge()
+    public function getCartridge(): NameCartridge
     {
         return $this->cartridge;
     }

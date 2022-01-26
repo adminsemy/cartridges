@@ -1,41 +1,35 @@
 <?php
 namespace App\Model;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\GeneratedValue;
+use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\Table;
 
-/**
- * @ORM\Entity
- * @ORM\Table(name="color_cartridges")
- */
+#[Entity()]
+#[Table(name: 'color_cartridge')]
 class ColorCartridge
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue
-     * @var int
-     */
-    private $id;
+    #[Id]
+    #[Column(type: 'integer')]
+    #[GeneratedValue('AUTO')]
+    private int $id;
 
-    /**
-     * @ORM\Column(name="name", type="string", length=50)
-     * @var string
-     */
-    private $name;
+    #[Column(name: 'name', type: 'string', length: 50)]
+    private string $name;
 
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
     
-    public function setName(string $name)
+    public function setName(string $name): void
     {
-        return $this->name = $name;
+        $this->name = $name;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }

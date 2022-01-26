@@ -3,169 +3,136 @@ namespace App\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\GeneratedValue;
+use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\ORM\Mapping\Table;
 
-/**
- * @ORM\Entity
- * @ORM\Table(name="printers")
- */
+#[Entity()]
+#[Table(name: 'printers')]
 class Printer
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue
-     * @var int
-     */
-    private $id;
+    #[Id]
+    #[Column(type: 'integer')]
+    #[GeneratedValue('AUTO')]
+    private int $id;
 
-    /**
-     * @ORM\Column(type="string", length=10, nullable=true)
-     * @var string
-     */
-    private $uin;
+    #[Column(
+        type: 'string',
+        length: 10,
+        nullable: true
+    )]
+    private string $uin;
 
-    /**
-     * @ORM\Column(type="string", length=30, nullable=true)
-     * @var string
-     */
-    private $serial;
+    #[Column(
+        type: 'string',
+        length: 30,
+        nullable: true
+    )]
 
-    /**
-     * @ORM\Column(type="string", length=15, nullable=true)
-     * @var string
-     */
-    private $inventory_number;
+    #[Column(
+        type: 'string',
+        length: 30,
+        nullable: true
+    )]
+    private string $serial;
 
-    /**
-     * @ORM\Column(type="integer", length=11, nullable=true)
-     * @var int
-     */
-    private $user;
+    #[Column(
+        type: 'string',
+        lenght: 15,
+        nullable: true
+    )]
+    private string $inventory_number;
 
-    /**
-     * @ORM\Column(type="integer", length=1, options={"default" : 0})
-     * @var int
-     */
-    private $isOrder;
+    #[Column(
+        type: 'integer',
+        lenght: 1,
+        options: ['default: 1']
+    )]
+    private int $view_on_off;
 
-    /**
-     * @ORM\Column(type="integer", options={"default" : 0})
-     * @var int
-     */
-    private $day_order;
+    #[ManyToOne(
+        targetEntity: NamePrinter::class,
+        inversedBy: 'assignToPrinter'
+    )]
+    #[JoinColumn(
+        name: 'id_name',
+        referencedColumnName: 'id'
+    )]
+    private NamePrinter $printerName;
 
-    /**
-     * @ORM\Column(type="integer", length=1, options={"default" : 1})
-     * @var int
-     */
-    private $view_on_off;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="NamePrinter", inversedBy="assignToPrinter")
-     * @JoinColumn(name="id_name", referencedColumnName="id")
-     * @var NamePrinter
-     */
-    private $printerName;
-
-    /**
-     * @ORM\OneToMany(targetEntity="HistoryOrder", mappedBy="printer")
-     * @var HistoryOrder[]
-     */
-    private $historyOrder;
+    #[OneToMany(
+        targetEntity: HistoryOrder::class,
+        mappedBy: 'printer'
+    )]
+    private array $historyOrder;
 
     public function __construct()
     {
-        $this->printerName = new ArrayCollection(); 
+        $this->historyOrder = new ArrayCollection(); 
     }
 
-    public function setPrinterName(NamePrinter $namePrinter)
+    public function setPrinterName(NamePrinter $namePrinter): void
     {
-        return $this->printerName = $namePrinter;
+        $this->printerName = $namePrinter;
     }
 
-    public function getPrinterName()
+    public function getPrinterName(): NamePrinter
     {
         return $this->printerName;
     }
 
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getUin()
+    public function getUin(): string
     {
         return $this->uin;
     }
 
-    public function setUin(string $uin = null)
+    public function setUin(string $uin = null): void
     {
         $this->uin = $uin;
     }
 
-    public function setSerial(string $serial = null)
+    public function setSerial(string $serial = null): void
     {
         $this->printer = $serial;
     }
 
-    public function getSerial()
+    public function getSerial(): string
     {
         return $this->serial;
     }
     
-    public function setInventoryNumber(string $inventoryNumber = null)
+    public function setInventoryNumber(string $inventoryNumber = null): void
     {
         $this->inventory_number = $inventoryNumber;
     }
 
-    public function getInventoryNumber()
+    public function getInventoryNumber(): string
     {
         return $this->inventory_number;
     }
-
-    public function setUser(string $user = null)
-    {
-        $this->user = $user;
-    }
-
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    public function setIsOrder(int $isOrder = 0)
-    {
-        $this->isOrder = $isOrder;
-    }
-
-    public function getIsOrder()
-    {
-        return $this->isOrder;
-    }
-
-    public function setDayOrder(int $dayOrder = 0)
-    {
-        $this->day_order = $dayOrder;
-    }
-
-    public function getDayOrder()
-    {
-        return $this->day_order;
-    }
-
-    public function setViewOnOff(int $viewOnOff = 1)
+ 
+    public function setViewOnOff(int $viewOnOff = 1): void
     {
         $this->view_on_off = $viewOnOff;
     }
 
-    public function getViewOnOff()
+    public function getViewOnOff(): int
     {
         return $this->view_on_off;
     }
 
-    public function assignToHistoryOrder(HistoryOrder $historyOrder)
+    public function assignToHistoryOrder(HistoryOrder $historyOrder): void
     {
-        return $this->historyOrder[] = $historyOrder;
+        $this->historyOrder[] = $historyOrder;
     }
 }

@@ -2,70 +2,68 @@
 namespace App\Model;
 
 use DateTimeImmutable;
+use Doctrine\DBAL\Types\DateTimeType;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\GeneratedValue;
+use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\Table;
 
-/**
- * @ORM\Entity
- * @ORM\Table(name="cartridges")
- */
+#[Entity()]
+#[Table(name: 'cartridges')]
 class HistoryOrder
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue
-     * @var int
-     */
-    private $id;
+    #[Id]
+    #[Column(type: 'integer')]
+    #[GeneratedValue('AUTO')]
+    private int $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Printer", inversedBy="historyOrder")
-     * @JoinColumn(name="id_printer", referencedColumnName="id")
-     * @var NamePrinter
-     */
-    private $printer;
+    #[ManyToOne(targetEntity: Printer::class, inversedBy: 'historyOrder')]
+    #[JoinColumn(name:'id_printer', referencedColumnName: 'id')]
+    private Printer $printer;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="NameCartridge", inversedBy="id")
-     * @JoinColumn(name="id_cartridge", referencedColumnName="id")
-     * @var NameCartridge
-     */
-    private $cartridge;
+    #[ManyToOne(targetEntity: NameCartridge::class)]
+    #[JoinColumn(name: 'id_cartridge', referencedColumnName: 'id')]
+    private NameCartridge $cartridge;
 
-    /**
-     * @ORM\Column(name="data", type="datatime", columnDefinition="timestamp default current_timestamp")
-     * @var DateTimeImmutable
-     */
-    private $date;
+    #[Column(name: 'data', type: 'datatime', columnDefinition: 'timestamp default current_timestamp')]
+    private \DateTimeImmutable $date;
 
-    public function __construct(\DateTimeImmutable $date)
-    {
-        $this->date = $date;                
-    }
-
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function setPrinter(Printer $printer)
+    public function setPrinter(Printer $printer): void
     {
-        return $this->printer = $printer;
+        $this->printer = $printer;
     }
 
-    public function getPrinter()
+    public function getPrinter(): Printer
     {
         return $this->printer;
     }
 
-    public function setCartridge(NameCartridge $cartridge)
+    public function setCartridge(NameCartridge $cartridge): void
     {
-        return $this->cartridge = $cartridge;
+        $this->cartridge = $cartridge;
     }
 
-    public function getCartridge()
+    public function getCartridge(): NameCartridge
     {
         return $this->cartridge;
+    }
+
+    public function setDate(\DateTimeImmutable $date = new DateTimeImmutable()): void
+    {
+        $this->date = $date; 
+    }
+
+    public function getDate(): \DateTimeImmutable
+    {
+        return $this->date;
     }
 }

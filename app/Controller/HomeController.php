@@ -13,7 +13,7 @@ class HomeController
 
     public function test($parametres)
     {
-        $entityManager = Doctrine::entityManager();
+        $entityManager = Doctrine::entityManagerAdvanced();
         //$printers = $entityManager->getRepository(Printer::class)->findAll();
         $printerClass = Printer::class;
         $printers = $entityManager->createQuery("SELECT p FROM {$printerClass} p")->getResult();

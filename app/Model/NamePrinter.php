@@ -3,85 +3,73 @@ namespace App\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\GeneratedValue;
+use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\OneToOne;
+use Doctrine\ORM\Mapping\Table;
 
-/**
- * @ORM\Entity
- * @ORM\Table(name="name_printers")
- */
+#[Entity()]
+#[Table(name: 'name_printers')]
 class NamePrinter
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue
-     * @var int
-     */
-    private $id;
+    #[Id]
+    #[Column(type: 'integer')]
+    #[GeneratedValue('AUTO')]
+    private int $id;
 
-    /**
-     * @ORM\Column(type="string", length=50, nullable=true)
-     * @var string
-     */
-    private $name;
+    #[Column(
+        type: 'string',
+        length: 50,
+        nullable: true,
+    )]
+    private string $name;
 
-    /**
-     * @ORM\Column(name="view_on_off", 
-     *                  type="integer",
-     *                  length=1,
-     *                  options={"default" : 1})
-     * @var int
-     */
-    private $viewOnOff;
+    #[Column(
+        name: 'view_on_off',
+        type: 'integer',
+        length: 1,
+        options: ['default' => 1]
+    )]
+    private int $viewOnOff;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Cartridge", mappedBy="namePrinter")
-     * @var Cartridge[]
-     */
-    private $cartridges;
+    #[OneToOne(targetEntity: Cartridge::class, mappedBy: 'namePrinter')]
+    private array $cartridges;
 
     public function __construct()
     {
         $this->cartridges = new ArrayCollection();
     }
 
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
     
-    public function assignToCartridge(Cartridge $cartridge)
+    public function assignToCartridge(Cartridge $cartridge): void
     {
         $this->cartridges[] = $cartridge;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function setName(string $name = null)
+    public function setName(string $name = null): void
     {
-        $this->uin = $name;
+        $this->name = $name;
     }
 
-    /* public function setIdName($idName)
-    {
-        $this->id_name = $idName;
-    }
-
-    public function getIdName()
-    {
-        return $this->id_name;
-    } */
-
-    public function setViewOnOff(int $viewOnOff = 1)
+    public function setViewOnOff(int $viewOnOff = 1): void
     {
         $this->viewOnOff = $viewOnOff;
     }
 
-    public function getViewOnOff()
+    public function getViewOnOff(): int
     {
-        return $this->view_on_off;
+        return $this->viewOnOff;
     }
 
 }

@@ -1,135 +1,138 @@
 <?php
 namespace App\Model;
 
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\GeneratedValue;
+use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\Table;
 
-/**
- * @ORM\Entity
- * @ORM\Table(name="servicedesk_history")
- */
+#[Entity()]
+#[Table(name: 'servicedesk_history')]
 class ServiceDeskHistory
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue
-     * @var int
-     */
-    private $id;
+    #[Id]
+    #[Column(
+        type: 'integer'
+    )]
+    #[GeneratedValue('AUTO')]
+    private int $id;
 
-    /**
-     * @ORM\Column(type="string", length=8)
-     * @var string
-     */
-    private $uin;
+    #[Column(
+        type: 'string',
+        length: 8
+    )]
+    private string $uin;
 
-    /**
-     * @ORM\Column(type="datetime", columnDefinition="timestamp default current_timestamp")
-     * @var DateTime
-     */
-    private $date;
+    #[Column(
+        type: 'datetime',
+        columnDefinition: 'timestamp default current_timestamp'
+    )]
+    private \DateTimeImmutable $date;
 
-    /**
-     * @ORM\Column(type="string", length=50)
-     * @var string
-     */
-    private $printer;
+    #[Column(
+        type: 'string',
+        length: 50
+    )]
+    private string $printer;
 
-    /**
-     * @ORM\Column(type="string", length=20)
-     * @var string
-     */
-    private $color;
+    #[Column(
+        type: 'string',
+        length: 20
+    )]
+    private string $color;
 
-    /**
-     * @ORM\Column(type="string", length=50)
-     * @var string
-     */
-    private $user;
+    #[Column(
+        type: 'string',
+        length: 50
+    )]
+    private string $user;
 
-    /**
-     * @ORM\Column(type="string", length=100)
-     * @var string
-     */
-    private $id_email;
+    #[Column(
+        type: 'string',
+        length: 100
+    )]
+    private string $id_email;
 
-    /**
-     * @ORM\Column(type="smallint", options={"default" : 0})
-     * @var int
-     */
-    private $add_db;
+    #[Column(
+        type: 'smallint',
+        options: ['default' => 0]
+    )]
+    private int $add_db;
 
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getUin()
+    public function getUin(): string
     {
         return $this->uin;
     }
 
-    public function setUin(string $uin)
+    public function setUin(string $uin): void
     {
         $this->uin = $uin;
     }
 
-    public function setDate(\DateTime $date)
+    public function setDate(\DateTimeImmutable $date = new DateTimeImmutable()): void
     {
         $this->date = $date;
     }
 
-    public function getDate()
+    public function getDate(): \DateTimeImmutable
     {
         return $this->date;
     }
 
-    public function setPrinter(string $printer)
+    public function setPrinter(string $printer): void
     {
         $this->printer = $printer;
     }
 
-    public function getPrinter()
+    public function getPrinter(): string
     {
         return $this->printer;
     }
     
-    public function setColor(string $color)
+    public function setColor(string $color): void
     {
         $this->color = $color;
     }
 
-    public function getColor()
+    public function getColor(): string
     {
         return $this->color;
     }
 
-    public function setUser(string $user)
+    public function setUser(string $user): void
     {
         $this->user = $user;
     }
 
-    public function getUser()
+    public function getUser(): string
     {
         return $this->user;
     }
 
-    public function setIdEmail(string $idEmail)
+    public function setIdEmail(string $idEmail): void
     {
         $this->id_email = $idEmail;
     }
 
-    public function getIdEmail()
+    public function getIdEmail(): string
     {
         return $this->id_email;
     }
 
-    public function setAddDb(int $AddDb)
+    public function setAddDb(int $AddDb): void
     {
         $this->add_db = $AddDb;
     }
 
-    public function getAddDb()
+    public function getAddDb(): int
     {
         return $this->add_db;
     }
