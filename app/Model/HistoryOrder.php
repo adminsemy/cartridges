@@ -57,7 +57,7 @@ class HistoryOrder
         return $this->cartridge;
     }
 
-    public function setDate(\DateTimeImmutable $date = new DateTimeImmutable()): void
+    public function setDate(\DateTimeImmutable $date): void
     {
         $this->date = $date; 
     }

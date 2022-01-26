@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\Table;
+use Doctrine\ORM\PersistentCollection;
 
 #[Entity()]
 #[Table(name: 'printers')]
@@ -33,24 +34,18 @@ class Printer
         length: 30,
         nullable: true
     )]
-
-    #[Column(
-        type: 'string',
-        length: 30,
-        nullable: true
-    )]
     private string $serial;
 
     #[Column(
         type: 'string',
-        lenght: 15,
+        length: 15,
         nullable: true
     )]
     private string $inventory_number;
 
     #[Column(
         type: 'integer',
-        lenght: 1,
+        length: 1,
         options: ['default: 1']
     )]
     private int $view_on_off;
@@ -69,12 +64,7 @@ class Printer
         targetEntity: HistoryOrder::class,
         mappedBy: 'printer'
     )]
-    private array $historyOrder;
-
-    public function __construct()
-    {
-        $this->historyOrder = new ArrayCollection(); 
-    }
+    private $historyOrder;
 
     public function setPrinterName(NamePrinter $namePrinter): void
     {
@@ -134,5 +124,10 @@ class Printer
     public function assignToHistoryOrder(HistoryOrder $historyOrder): void
     {
         $this->historyOrder[] = $historyOrder;
+    }
+
+    public function getType()
+    {
+        return get_class($this->historyOrder);
     }
 }

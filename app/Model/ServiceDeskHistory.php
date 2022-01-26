@@ -77,7 +77,7 @@ class ServiceDeskHistory
         $this->uin = $uin;
     }
 
-    public function setDate(\DateTimeImmutable $date = new DateTimeImmutable()): void
+    public function setDate(\DateTimeImmutable $date): void
     {
         $this->date = $date;
     }

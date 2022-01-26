@@ -18,8 +18,11 @@ class HomeController
         $printerClass = Printer::class;
         $printers = $entityManager->createQuery("SELECT p FROM {$printerClass} p")->getResult();
         
+        /**
+         * @var Printer $printer
+         */
         foreach ($printers as $printer) {
-            echo sprintf("-%s\n", $printer->getId());
+            echo sprintf("-%s\n", $printer->getType());
         }
         echo "<pre/>";
         print_r(mysqli_get_client_stats());
