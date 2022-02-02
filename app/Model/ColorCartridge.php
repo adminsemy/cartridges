@@ -1,14 +1,16 @@
 <?php
 namespace App\Model;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\Table;
 
 #[Entity()]
-#[Table(name: 'color_cartridge')]
+#[Table(name: 'color_cartridges')]
 class ColorCartridge
 {
     #[Id]
@@ -18,6 +20,9 @@ class ColorCartridge
 
     #[Column(name: 'name', type: 'string', length: 50)]
     private string $name;
+
+    #[OneToMany(mappedBy: 'colorCartridge', targetEntity:NameCartridge::class)]
+    private $nameCartridges;
 
     public function getId(): int
     {
@@ -33,4 +38,10 @@ class ColorCartridge
     {
         return $this->name;
     }
+
+    public function assignToNameCartridge(NameCartridge $nameCartridge): void
+    {
+        $this->nameCartridges[] = $nameCartridge;
+    }
+
 }

@@ -1,6 +1,7 @@
 <?php
 namespace App\Model;
 
+use App\Repository\NameCartridgeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Column;
@@ -11,7 +12,7 @@ use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\Table;
 
-#[Entity()]
+#[Entity(repositoryClass: NameCartridgeRepository::class)]
 #[Table(name: 'name_cartridges')]
 class NameCartridge
 {
@@ -52,11 +53,16 @@ class NameCartridge
     )]
     private string $producer;
 
-    #[ManyToOne(targetEntity: ColorCartridge::class, inversedBy: 'id')]
+    #[ManyToOne(targetEntity: ColorCartridge::class, inversedBy: 'nameCartridges')]
     #[JoinColumn(name: 'id_color', referencedColumnName: 'id')]
     private ColorCartridge $colorCartridge;
 
-    #[Column(name: 'all', type: 'integer', length: 11, options: ['default' => 1])]
+    #[Column(
+        name: 'all',
+        type: 'integer',
+        length: 11,
+        options: ['default' => 1]
+    )]
     private int $all = 1;
 
     #[Column(
