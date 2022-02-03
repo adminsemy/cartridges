@@ -35,7 +35,7 @@ class NameCartridge
         length: 100,
         nullable: true
     )]
-    private string $nameExcel;
+    private ?string $nameExcel;
 
     #[Column(
         name: 'description',
@@ -43,7 +43,7 @@ class NameCartridge
         length: 255,
         nullable: true
     )]
-    private string $description;
+    private ?string $description;
 
     #[Column(
         name: 'producer',
@@ -51,7 +51,7 @@ class NameCartridge
         length: 50,
         nullable: true
     )]
-    private string $producer;
+    private ?string $producer;
 
     #[ManyToOne(targetEntity: ColorCartridge::class, inversedBy: 'nameCartridges')]
     #[JoinColumn(name: 'id_color', referencedColumnName: 'id')]
@@ -98,7 +98,7 @@ class NameCartridge
         $this->brand = $brand;
     }
 
-    public function getNameExcel(): string
+    public function getNameExcel(): ?string
     {
         return $this->nameExcel;
     }
@@ -108,7 +108,7 @@ class NameCartridge
         $this->nameExcel = $nameExcel;
     }
 
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -118,7 +118,7 @@ class NameCartridge
         $this->description = $description;
     }
 
-    public function getProducer(): string
+    public function getProducer(): ?string
     {
         return $this->producer;
     }

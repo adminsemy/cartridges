@@ -1,21 +1,20 @@
 <?php
 namespace App\Controller\Api;
 
+use App\Model\Cartridge;
+use App\Service\Data\CartridgeData;
+use App\Service\Response\JSON\CartridgeJson;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
 class CartridgeController
 {
     /**
      * @Route("/api/cartridges", name="apiCartridges")
      */
-    public function cartridges(): void
+    public function cartridges()
     {
-        echo json_encode([
-            ['1', '703', '1555555555', '12'],
-            ['2', '36A', '1555555555', '3'],
-            ['3', '49A', '1555555555', '7'],
-            ['4', 'TK-1150', '1555555555', '30'],
-            ['5', 'TK-1120', '1555555555', '0'],
-            ['6', 'Xerox ', '1555555555', '4'],
-            ['7', 'Ricoh Aficio C232', '1555555555', '1'],
-        ]);
+        $data = CartridgeData::getAllCartridges();
+        $resp =  new CartridgeJson($data);
+        $resp->send();
     }
 }
