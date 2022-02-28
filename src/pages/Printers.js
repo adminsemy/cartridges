@@ -1,9 +1,9 @@
-import axios from "axios";
-import React, {useState, useEffect} from "react";
-import { Table } from "../components/tables/CartridgeTable";
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import { Table } from '../components/tables/PrintersTable';
 
-export const CartridgesCount = () => {
-    const [cartridges, setCartridges] = useState(
+export const Printers = () => {
+    const [printers, setPrinters] = useState(
         {
             loading: true,
             table: {
@@ -15,30 +15,28 @@ export const CartridgesCount = () => {
     useEffect(() => {
         async function getData() {
             const host = process.env.REACT_APP_API_HOST_PHP || 'http://localhost:9001';
-            const response = await axios.get(host + '/api/cartridges');
-            setCartridges(
+            const response = await axios.get(host + '/api/printers');
+            setPrinters(
             {
                 loading: false, 
                 table: {
                     name: [
                         {id: 'id', name: 'ID'},
                         {id: 'name', name: 'Имя'},
-                        {id: 'color', name: 'Цвет'},
-                        {id: 'producer', name: 'Бренд'},
-                        {id: 'nameExcel', name: 'Имя в Excel'},
-                        {id: 'minimum', name: 'Минимум'},
-                        {id: 'all', name: 'Всего'},
+                        {id: 'uin', name: 'UIN'},
+                        {id: 'serial', name: 'Серийный номер'},
+                        {id: 'inventory', name: 'Инвентарный номер'},
                     ],
                     data: response.data
                   }
             });
         };
         getData()
-    },[setCartridges]);
+    },[setPrinters]);
 
-    console.log(cartridges);
+    console.log(printers);
 
-    if (cartridges.loading === true) {
+    if (printers.loading === true) {
         return (
             <div className="d-flex justify-content-center">
             <div className="spinner-border" role="status">
@@ -48,7 +46,7 @@ export const CartridgesCount = () => {
         )
     } else {
         return (
-            <Table table={cartridges.table}></Table>
+            <Table table={printers.table}></Table>
         )
     }
 }

@@ -1,9 +1,9 @@
 import './App.css';
 import {Routes, Route} from 'react-router-dom';
 import { CartridgesCount } from './pages/CartridgesCount';
-import { CartridgesOrder } from './pages/CartridgesOrder';
 import { NotFound } from './pages/NotFound';
 import Navigation from './components/Navigation';
+import { Printers } from './pages/Printers';
 
 function App()  {
   return (
@@ -13,7 +13,7 @@ function App()  {
           <div className='raw'>
             <Routes>
               <Route path="/" element={<CartridgesCount />} />
-              <Route path="/order" element={<CartridgesOrder />} />
+              <Route path="/order" element={<Printers />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>

@@ -1,6 +1,7 @@
 <?php
 namespace App\Model;
 
+use App\Repository\PrinterRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Column;
@@ -13,7 +14,7 @@ use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\Table;
 use Doctrine\ORM\PersistentCollection;
 
-#[Entity()]
+#[Entity(repositoryClass: PrinterRepository::class)]
 #[Table(name: 'printers')]
 class Printer
 {
