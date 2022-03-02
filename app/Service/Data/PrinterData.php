@@ -21,15 +21,20 @@ class PrinterData
         $printerClass = Printer::class;
         $printers = $printerData::$entityManager->getRepository($printerClass)->getAllPrinters();
         foreach ($printers as $printer) {
-            $data[] = [
-                'id' => $printer['id'],
-                'name' => $printer['name'],
-                'uin' => $printer['uin'],
-                'serial' => $printer['serial'],
-                'inventory' => $printer['inventory_number']
-            ];
+            if( isset($data[$printer['id']]) ) {
+                $data[$printer['id']]['cartridge'][$printer['id__brand']] = $printer['brand'];
+            } else {
+                $data[$printer['id']] = [
+                    'id' => $printer['id'],
+                    'name' => $printer['name'],
+                    'uin' => $printer['uin'],
+                    'serial' => $printer['serial'],
+                    'inventory' => $printer['inventory_number'],
+                    'cartridge' => [$printer['id__brand'] => $printer['brand']],
+                ];
+            }
         }
 
-        return $data;
+        return array_values($data);
     }
 }

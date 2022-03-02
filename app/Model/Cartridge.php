@@ -1,16 +1,17 @@
 <?php
 namespace App\Model;
 
-use Doctrine\DBAL\Schema\Table;
+
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\Table;
 
 #[Entity()]
-#[Table(name: "cartridges")]
+#[Table(name: 'cartridges')]
 class Cartridge
 {
     #[Id]
@@ -22,7 +23,7 @@ class Cartridge
     #[JoinColumn(name: 'id_printer', referencedColumnName: 'id')]
     private NamePrinter $namePrinter;
 
-    #[ManyToOne(targetEntity: NameCartridge::class, inversedBy: 'id')]
+    #[ManyToOne(targetEntity: NameCartridge::class, inversedBy: 'cartridges')]
     #[JoinColumn(name: 'id_cartridge', referencedColumnName: 'id')]
     private NameCartridge $cartridge;
 

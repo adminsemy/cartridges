@@ -3,13 +3,13 @@ namespace App\Model;
 
 use App\Repository\NameCartridgeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\Table;
 
 #[Entity(repositoryClass: NameCartridgeRepository::class)]
@@ -64,6 +64,9 @@ class NameCartridge
         options: ['default' => 1]
     )]
     private int $all = 1;
+    
+    #[OneToMany(targetEntity: Cartridge::class, mappedBy: 'cartridge')]
+    private array $cartridges;
 
     #[Column(
         name: 'minimum',
@@ -72,6 +75,12 @@ class NameCartridge
         options: ['default' => 0, 'unsigned' => true]
     )]
     private int $minimum = 0;
+
+
+    public function __construct()
+    {
+        $this->cartridges = new ArrayCollection();
+    }
 
     public function getId(): int
     {
