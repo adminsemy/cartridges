@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\ORM\Mapping\OneToOne;
 use Doctrine\ORM\Mapping\Table;
 
 #[Entity(repositoryClass: NameCartridgeRepository::class)]
@@ -64,9 +65,9 @@ class NameCartridge
         options: ['default' => 1]
     )]
     private int $all = 1;
-    
+   
     #[OneToMany(targetEntity: Cartridge::class, mappedBy: 'cartridge')]
-    private array $cartridges;
+    private $cartridges;
 
     #[Column(
         name: 'minimum',
@@ -80,6 +81,11 @@ class NameCartridge
     public function __construct()
     {
         $this->cartridges = new ArrayCollection();
+    }
+
+    public function assignToCartridge(Cartridge $cartridge): void
+    {
+        $this->cartridges[] = $cartridge;
     }
 
     public function getId(): int
