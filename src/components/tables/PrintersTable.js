@@ -46,6 +46,9 @@ export const Table = (value) => {
                          <tr key={item.id}>
                             <td>{item.id}</td>
                             <td><Link to={`/printer/${item.id}`}>{item.name}</Link></td>
+                            <td>{item.cartridge.map(cart => {
+                                return <p key={cart.id}>{cart.name}</p>
+                            })}</td>
                             <td>{item.uin}</td>
                             <td>{item.serial}</td>
                             <td>{item.inventory}</td>

@@ -23,9 +23,11 @@ export const Printers = () => {
                     name: [
                         {id: 'id', name: 'ID'},
                         {id: 'name', name: 'Имя'},
+                        {id: 'cartridges', name: 'Картриджи для принтера'},
                         {id: 'uin', name: 'UIN'},
                         {id: 'serial', name: 'Серийный номер'},
                         {id: 'inventory', name: 'Инвентарный номер'},
+                        {id: 'button', name: 'Действия'},
                     ],
                     data: response.data
                   }
