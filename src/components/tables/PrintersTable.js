@@ -1,25 +1,13 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSortableData } from "../../userFuncton/useSortableData";
 
 
 export const Table = (value) => {
     const {table} = value;
-    const { items, requestSort, sortConfig } = useSortableData(table.data);
-    let sortedProducts = [...table.data];
-    const clickMe = () => {
-        console.log('click');
-    };
-    sortedProducts.sort((a, b) => {
-      if (a.name < b.name) {
-        return -1;
-      }
-      if (a.name > b.name) {
-        return 1;
-      }
-      return 0;
-    });
-    let count = 1;
+    const [click, setClick] = useState(0);
+    const { items, requestSort} = useSortableData(table.data);
+    console.log(click);
     return (
         <div>
             <table className="table table-hover table-light">
@@ -54,7 +42,7 @@ export const Table = (value) => {
                             <td>{item.serial}</td>
                             <td>{item.inventory}</td>
                             <td>
-                            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#orderModal" onClick={clickMe}>
+                            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#orderModal" onClick={() => setClick(item.id)}>  
                             Заказать картридж
                             </button>
                             </td>
