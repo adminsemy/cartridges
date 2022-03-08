@@ -19,7 +19,7 @@ export const Table = (value) => {
                             <th key={value.id} scope="col">
                                 <button
                                     type="button"
-                                    onClick={() => requestSort(value.id)}
+                                    onClick={() => {requestSort(value.id); setCartridges(null)}}
                                 >
                                 {value.name}
                                 </button>
