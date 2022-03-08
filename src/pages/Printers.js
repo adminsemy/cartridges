@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import { Loading } from '../components/Loading';
 import { Table } from '../components/tables/PrintersTable';
 
 export const Printers = () => {
@@ -39,13 +40,7 @@ export const Printers = () => {
     console.log(printers);
 
     if (printers.loading === true) {
-        return (
-            <div className="d-flex justify-content-center">
-            <div className="spinner-border" role="status">
-                <span className="visually-hidden">Loading...</span>
-            </div>
-            </div>
-        )
+        return <Loading />
     } else {
         return (
             <Table table={printers.table}></Table>

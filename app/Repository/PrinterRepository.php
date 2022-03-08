@@ -18,4 +18,18 @@ class PrinterRepository extends EntityRepository
         $result = $this->_em->createQuery($dql)->getArrayResult();
         return $result;
     }
+
+    public function getPrinterCartridges($printerId)
+    {
+        $printerClass = Printer::class;
+        $dql = "SELECT z.id, z.brand
+                FROM {$printerClass} p 
+                JOIN p.printerName n
+                JOIN n.cartridges c
+                JOIN c.cartridge z
+                WHERE p.id = :id";
+        $query = $this->_em->createQuery($dql);
+        $result = $query->setParameter('id', $printerId)->getArrayResult();
+        return $result;
+    }
 }

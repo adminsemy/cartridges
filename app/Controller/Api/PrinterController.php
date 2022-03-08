@@ -16,4 +16,13 @@ class PrinterController
         $resp =  new PrinterJson($data);
         $resp->send();
     }
+    /**
+     * @Route("/api/printers/{id}/cartridges", name="apiPrinterCartridges")
+     */
+    public function printerCartridges($parametres)
+    {
+        $data = PrinterData::getPrinterCartridges((int) $parametres['id']);
+        $resp =  new PrinterJson($data);
+        $resp->send();
+    }
 }

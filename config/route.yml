@@ -6,6 +6,10 @@ apiCartridges:
     path: /api/cartridges
     controller: App\Controller\Api\CartridgeController::cartridges
     methods: GET
+apiPrinterCartridges:
+    path: /api/printer/{id}/cartridges
+    controller: App\Controller\Api\PrinterController::printerCartridges
+    methods: GET
 apiPrinters:
     path: /api/printers
     controller: App\Controller\Api\PrinterController::printers

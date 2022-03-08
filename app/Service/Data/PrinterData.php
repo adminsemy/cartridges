@@ -37,4 +37,19 @@ class PrinterData
 
         return array_values($data);
     }
+
+    public static function getPrinterCartridges($printerId)
+    {
+        $printerCartridgesData = new self;
+        $data = [];
+        $printerClass = Printer::class;
+        $cartridges = $printerCartridgesData::$entityManager->getRepository($printerClass)->getPrinterCartridges($printerId);
+        foreach ($cartridges as $cartridge) {
+            $data[] = [
+                'id' => $cartridge['id'],
+                'name' => $cartridge['brand']
+            ];
+        }
+        return array_values($data);
+    }
 }
