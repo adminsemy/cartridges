@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Headers: *');
 
 $locator = new FileLocator(array(__DIR__));
 $loader = new YamlFileLoader($locator);

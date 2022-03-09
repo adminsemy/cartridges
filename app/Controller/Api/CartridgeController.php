@@ -17,4 +17,11 @@ class CartridgeController
         $resp =  new CartridgeJson($data);
         $resp->send();
     }
+
+    public function order($parametres)
+    {
+        $postData = file_get_contents('php://input');
+        $data = json_decode($postData, true);
+        echo json_encode($data);
+    }
 }

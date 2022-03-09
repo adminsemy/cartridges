@@ -37,8 +37,6 @@ export const Printers = () => {
         getData()
     },[setPrinters]);
 
-    console.log(printers);
-
     if (printers.loading === true) {
         return <Loading />
     } else {

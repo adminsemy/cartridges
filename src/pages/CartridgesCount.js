@@ -37,8 +37,6 @@ export const CartridgesCount = () => {
         getData()
     },[setCartridges]);
 
-    console.log(cartridges);
-
     if (cartridges.loading === true) {
         return <Loading/>
     } else {
