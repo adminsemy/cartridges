@@ -26,16 +26,17 @@ export const ModalPrinterCartridges = (props) => {
         }
     },[id, setCartridges]);
 
-    const [orderCartridgeId, setOrderCarrtridgeId] = useState(null);
+    const [orderCartridgeData, setOrderCarrtridgeId] = useState({'printer_id': null, 'cartridge_id': null});
     useEffect(() => {
         async function orderCartridge() {
             const host = process.env.REACT_APP_API_HOST_PHP || 'http://localhost:9001';
-            const response = await axios.post(host + `/api/cartridge/${orderCartridgeId}/order`, {'id': orderCartridgeId});
+            const response = await axios.post(host + `/api/cartridge/order`, orderCartridgeData);
             console.log(response.data);
         }
-        orderCartridge();
-        console.log(orderCartridgeId);
-    },[orderCartridgeId]);
+        if ( orderCartridgeData.printer_id ) {
+            orderCartridge();            
+        }
+    },[orderCartridgeData]);
     
     return (
         <div className="modal fade" id="orderModal" tabIndex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
@@ -54,7 +55,7 @@ export const ModalPrinterCartridges = (props) => {
                                         <div className="row mt-2 mb-2" key={cartridge.id}>
                                             <div className="col col-lg-8">{cartridge.name}</div>
                                             <div className="col col-lg-4">
-                                            <button type="button" className="btn btn-success" data-bs-dismiss="modal" onClick={() => setOrderCarrtridgeId(cartridge.id)}>
+                                            <button type="button" className="btn btn-success" data-bs-dismiss="modal" onClick={() => setOrderCarrtridgeId({'printer_id': id, 'cartridge_id': cartridge.id})}>
                                                 Заказать
                                             </button>
                                             </div>
