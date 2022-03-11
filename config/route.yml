@@ -7,7 +7,7 @@ apiCartridges:
     controller: App\Controller\Api\CartridgeController::cartridges
     methods: GET
 apiOrderCartridge:
-    path: /api/cartridge/{id}/order
+    path: /api/cartridge/order
     controller: App\Controller\Api\CartridgeController::order
     methods: POST
 apiPrinterCartridges:
