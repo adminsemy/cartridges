@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\Table;
 
 #[Entity()]
-#[Table(name: 'cartridges')]
+#[Table(name: 'history_orders')]
 class HistoryOrder
 {
     #[Id]
@@ -29,7 +29,7 @@ class HistoryOrder
     #[JoinColumn(name: 'id_cartridge', referencedColumnName: 'id')]
     private NameCartridge $cartridge;
 
-    #[Column(name: 'data', type: 'datatime', columnDefinition: 'timestamp default current_timestamp')]
+    #[Column(name: 'data', type: 'datetime_immutable', columnDefinition: 'timestamp default current_timestamp')]
     private \DateTimeImmutable $date;
 
     public function getId(): int

@@ -53,7 +53,7 @@ class Printer
 
     #[ManyToOne(
         targetEntity: NamePrinter::class,
-        inversedBy: 'assignToPrinter'
+        inversedBy: 'printers'
     )]
     #[JoinColumn(
         name: 'id_name',

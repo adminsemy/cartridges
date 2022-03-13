@@ -36,11 +36,15 @@ class NamePrinter
     private int $viewOnOff;
 
     #[OneToMany(targetEntity: Cartridge::class, mappedBy: 'namePrinter')]
-    private array $cartridges;
+    private $cartridges;
+
+    #[OneToMany(targetEntity: Printer::class, mappedBy: 'printerName')]
+    private $printers;
 
     public function __construct()
     {
         $this->cartridges = new ArrayCollection();
+        $this->printers = new ArrayCollection();
     }
 
     public function getId(): int
@@ -51,6 +55,11 @@ class NamePrinter
     public function assignToCartridge(Cartridge $cartridge): void
     {
         $this->cartridges[] = $cartridge;
+    }
+
+    public function assignToPrinter(Printer $printer): void
+    {
+        $this->printers[] = $printer;
     }
 
     public function getName(): string
