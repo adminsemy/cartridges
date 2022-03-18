@@ -44,6 +44,6 @@ class PrinterRepository extends EntityRepository
                 WHERE p.id = :id";
         $query = $this->_em->createQuery($dql);
         $result = $query->setParameter('id', $printerId)->getResult();
-        return $result;
+        return $result[0];
     }
 }

@@ -1,10 +1,12 @@
 <?php
 namespace App\Controller\Api;
 
-use App\Model\Cartridge;
 use App\Service\Data\CartridgeData;
+use App\Service\Data\JsonData;
+use App\Service\InsertData\OrderCartridgeInsertData;
 use App\Service\Response\JSON\CartridgeJson;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Service\Response\JSON\ResponseJson;
+use Exception;
 
 class CartridgeController
 {
@@ -18,10 +20,20 @@ class CartridgeController
         $resp->send();
     }
 
-    public function order($parametres)
+     /**
+     * @Route("/api/cartridge/order", name="apiOrderCartridge")
+     */
+    public function order()
     {
-        $postData = file_get_contents('php://input');
-        $data = json_decode($postData, true);
-        echo json_encode($data);
+        $response = new ResponseJson();
+        try {
+            $data = (new JsonData())->input()->getData();
+            $order = new OrderCartridgeInsertData();
+            $order->addData($data, new \DateTimeImmutable())->save();
+            $response->addParametres('Order cartridge', 'Success');
+            $response->send();
+        } catch (Exception $e) {
+            $response->addParametres('Order cartridge', $e->getMessage(), $e->getCode());
+        }
     }
 }
