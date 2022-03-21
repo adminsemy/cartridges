@@ -17,7 +17,7 @@ class HomeController
 {
     public function index()
     {
-        include('build/index.html');
+        include(__DIR__ . '/../../build/index.html');
     }
 
     public function test($parametres)
