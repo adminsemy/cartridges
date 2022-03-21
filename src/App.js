@@ -3,6 +3,8 @@ import { CartridgesCount } from './pages/CartridgesCount';
 import { NotFound } from './pages/NotFound';
 import Navigation from './components/Navigation';
 import { Printers } from './pages/Printers';
+import { Alert } from './components/Alert';
+
 
 function App()  {
   return (
@@ -10,6 +12,7 @@ function App()  {
         <Navigation />
         <div className='container-fluid'>
           <div className='raw'>
+            <Alert alert={{text: 'text'}} />            
             <Routes>
               <Route path="/" element={<CartridgesCount />} />
               <Route path="/order" element={<Printers />} />
