@@ -1,8 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useContext } from "react";
+import { AlertContext } from "../../context/alert/AlertContext";
 import { Loading } from "../Loading";
 
 export const ModalPrinterCartridges = (props) => {
+    const {show} = useContext(AlertContext);
     const { id } = props;
     const [cartridges, setCartridges] = useState({
         loading: true, 
@@ -31,6 +34,7 @@ export const ModalPrinterCartridges = (props) => {
         async function orderCartridge() {
             const host = process.env.REACT_APP_API_HOST_PHP || 'http://localhost:9001';
             const response = await axios.post(host + `/api/cartridge/order`, orderCartridgeData);
+            show(`${orderCartridgeData.cartridge_name} был успешно заказан`, 'primary');
             console.log(response.data);
         }
         if ( orderCartridgeData.printer_id ) {
@@ -55,7 +59,14 @@ export const ModalPrinterCartridges = (props) => {
                                         <div className="row mt-2 mb-2" key={cartridge.id}>
                                             <div className="col col-lg-8">{cartridge.name}</div>
                                             <div className="col col-lg-4">
-                                            <button type="button" className="btn btn-success" data-bs-dismiss="modal" onClick={() => setOrderCarrtridgeId({'printer_id': id, 'cartridge_id': cartridge.id})}>
+                                            <button type="button"
+                                                className="btn btn-success"
+                                                data-bs-dismiss="modal"
+                                                onClick={() => setOrderCarrtridgeId({
+                                                    'printer_id': id,
+                                                    'cartridge_id': cartridge.id,
+                                                    'cartridge_name': cartridge.name
+                                                })}>
                                                 Заказать
                                             </button>
                                             </div>

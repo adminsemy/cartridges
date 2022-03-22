@@ -4,15 +4,17 @@ import { NotFound } from './pages/NotFound';
 import Navigation from './components/Navigation';
 import { Printers } from './pages/Printers';
 import { Alert } from './components/Alert';
+import { AlertState } from './context/alert/AlertState';
 
 
 function App()  {
   return (
+    <AlertState>
       <div>
         <Navigation />
         <div className='container-fluid'>
           <div className='raw'>
-            <Alert alert={{text: 'text'}} />            
+            <Alert/>            
             <Routes>
               <Route path="/" element={<CartridgesCount />} />
               <Route path="/order" element={<Printers />} />
@@ -21,6 +23,7 @@ function App()  {
           </div>
         </div>
       </div>
+    </AlertState>
   );
 }
 
