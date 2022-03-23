@@ -29,18 +29,16 @@ export const ModalPrinterCartridges = (props) => {
         }
     },[id, setCartridges]);
 
-    const [orderCartridgeData, setOrderCarrtridgeId] = useState({'printer_id': null, 'cartridge_id': null});
-    useEffect(() => {
-        async function orderCartridge() {
+    const request = (id, cartridge_id, cartridge_name) => {
+        const orderCartridge = async () => {
             const host = process.env.REACT_APP_API_HOST_PHP || 'http://localhost:9001';
-            const response = await axios.post(host + `/api/cartridge/order`, orderCartridgeData);
-            show(`${orderCartridgeData.cartridge_name} был успешно заказан`, 'primary');
-            console.log(response.data);
+            const response = await axios.post(host + `/api/cartridge/order`, {printer_id: id, cartridge_id: cartridge_id});
+            if (response.data.message === 'Success') {
+                show(`${cartridge_name} был успешно заказан`, 'info')
+            }
         }
-        if ( orderCartridgeData.printer_id ) {
-            orderCartridge();            
-        }
-    },[orderCartridgeData]);
+        orderCartridge();
+    }
     
     return (
         <div className="modal fade" id="orderModal" tabIndex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
@@ -62,11 +60,11 @@ export const ModalPrinterCartridges = (props) => {
                                             <button type="button"
                                                 className="btn btn-success"
                                                 data-bs-dismiss="modal"
-                                                onClick={() => setOrderCarrtridgeId({
-                                                    'printer_id': id,
-                                                    'cartridge_id': cartridge.id,
-                                                    'cartridge_name': cartridge.name
-                                                })}>
+                                                onClick={() => request(
+                                                    id,
+                                                    cartridge.id,
+                                                    cartridge.name
+                                                )}>
                                                 Заказать
                                             </button>
                                             </div>
