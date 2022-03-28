@@ -16,7 +16,7 @@ apiPrinterCartridges:
     methods: GET
 apiCartridgeColor:
     path: /api/cartridge/color/all
-    controller: App\Controller\Api\ColorCartrideController::getAllColor
+    controller: App\Controller\Api\ColorCartridgeController::getAllColor
     methods: GET
 apiPrinters:
     path: /api/printers
