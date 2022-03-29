@@ -25,7 +25,7 @@ export const Cartridge = () => {
     useEffect(() => {
         const host = process.env.REACT_APP_API_HOST_PHP || 'http://localhost:9001';
         async function getData() {
-            const response = await axios.get(host + '/api/cartridge/'.id);
+            const response = await axios.get(host + '/api/cartridge/' + id);
             setCartridge(
             {
                 loading: false, 
@@ -35,10 +35,21 @@ export const Cartridge = () => {
         
         if (id) {
             getData();
+        } else {
+            setCartridge(
+                { 
+                    loading: true,
+                    data: {
+                        name: null,
+                        producer: null,
+                        nameExcel: null,
+                        color: '',
+                        minimum: 0,
+                        all: 0
+                    }
+                });
         }
     },[setCartridge, id]);
-    console.log(cartridge.data)
-    console.log(id)
 
     useEffect(() => {
         const host = process.env.REACT_APP_API_HOST_PHP || 'http://localhost:9001';
@@ -48,7 +59,7 @@ export const Cartridge = () => {
         };            
         getCartridgeColorData();
     },[setColorCartridges]);
-
+    
     return (
         <CartridgeForm cartridge={cartridge.data} colorCartridges={colorCartridges} />
     )

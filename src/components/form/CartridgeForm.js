@@ -1,14 +1,22 @@
 import React from "react";
+import { useState } from "react";
+import { useEffect } from "react";
 
 export const CartridgeForm = ({cartridge, colorCartridges}) => {
     
+    const [currentCartridge, setCurrentCartridge] = useState(cartridge);
+
+    useEffect(() => {
+        setCurrentCartridge(cartridge)
+    },[cartridge, setCurrentCartridge]);
+
     const handleSubmit = (event) => {
         event.preventDefault();
     }
 
-    const test = (event) => {
+    const changeCurrentCartridge = (event) => {
         const target = event.target;
-        console.log(target.value);
+        setCurrentCartridge({...currentCartridge,[target.name]: target.value})
     }
 
     return (
@@ -19,8 +27,8 @@ export const CartridgeForm = ({cartridge, colorCartridges}) => {
                         name="name"
                         className="form-control"
                         id="cartridgeNameInput"
-                        defaultValue={cartridge.name}
-                        onChange={test}
+                        defaultValue={currentCartridge.name}
+                        onChange={changeCurrentCartridge}
                     ></input>
                     <label htmlFor="cartridgeNameInput">Имя картриджа</label>
                 </div>
@@ -29,8 +37,8 @@ export const CartridgeForm = ({cartridge, colorCartridges}) => {
                         name="producer"
                         className="form-control"
                         id="cartridgeProducerInput"
-                        defaultValue={cartridge.producer}
-                        onChange={test}
+                        defaultValue={currentCartridge.producer}
+                        onChange={changeCurrentCartridge}
                 ></input>
                     <label htmlFor="cartridgeProducerInput">Бренд</label>
                 </div>
@@ -39,31 +47,32 @@ export const CartridgeForm = ({cartridge, colorCartridges}) => {
                         name="nameExcel"
                         className="form-control"
                         id="cartridgeNameExcelInput"
-                        defaultValue={cartridge.nameExcel}
-                        onChange={test}
+                        defaultValue={currentCartridge.nameExcel}
+                        onChange={changeCurrentCartridge}
                     ></input>
                     <label htmlFor="cartridgeNameExcelInput">Имя в Excel</label>
                 </div>
                 <div className="form-floating">
                     <select 
-                        name="colorCartridge"
+                        name="color"
                         className="form-select"
                         id="colorCartridgeSelect"
-                        aria-label="Floating label select example"
-                        defaultValue={cartridge.color}
-                        onChange={test}
+                        value={currentCartridge.color}
+                        onChange={changeCurrentCartridge}
                     >
                         {colorCartridges.map((color) => {
                             return (
-                                <option
+                                <option 
                                     key={color.id}
                                     value={color.id}
-                                >{color.name}</option>)
+                                    label={color.name}
+                                ></option>
+                            )
                         })}
                     </select>
                     <label htmlFor="floatingSelect">Цвет картриджа</label>
                 </div>
-                <button value="Отправить" onClick={test} />
+                <button value="Отправить" onClick={changeCurrentCartridge} />
             </form>
         </div>
     )
