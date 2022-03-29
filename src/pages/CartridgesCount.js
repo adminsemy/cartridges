@@ -45,7 +45,7 @@ export const CartridgesCount = () => {
         return (
             <Fragment>
                 <Link to={'/cartridge'}>
-                    <button type="button" class="btn btn-primary">Новый картридж</button>
+                    <button type="button" className="btn btn-primary">Новый картридж</button>
                 </Link>
                 <Table table={cartridges.table}></Table>
             </Fragment>

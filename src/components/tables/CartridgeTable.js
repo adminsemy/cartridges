@@ -1,11 +1,11 @@
-import React, { useMemo, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { useSortableData } from "../../userFuncton/useSortableData";
 
 
 export const Table = (value) => {
     const {table} = value;
-    const { items, requestSort, sortConfig } = useSortableData(table.data);
+    const { items, requestSort} = useSortableData(table.data);
     let sortedProducts = [...table.data];
     sortedProducts.sort((a, b) => {
       if (a.name < b.name) {
@@ -16,7 +16,6 @@ export const Table = (value) => {
       }
       return 0;
     });
-    let count = 1;
     return (
 
         

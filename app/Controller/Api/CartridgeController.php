@@ -36,4 +36,14 @@ class CartridgeController
             $response->addParametres('Order cartridge', $e->getMessage(), $e->getCode());
         }
     }
+     /**
+     * @Route("/api/cartridge/:id", name="apiCartridgeById")
+     */
+    public function getCartridgeById($parametres)
+    {
+        $id = (int)$parametres['id'];
+        $data = CartridgeData::getCartridgeById($id);
+        $resp = new CartridgeJson($data);
+        $resp->send();
+    }
 }

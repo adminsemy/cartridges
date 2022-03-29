@@ -2,14 +2,18 @@ test:
     path: /test
     controller: App\Controller\HomeController::test
     methods: GET
-apiCartridges:
-    path: /api/cartridges
-    controller: App\Controller\Api\CartridgeController::cartridges
-    methods: GET
 apiOrderCartridge:
     path: /api/cartridge/order
     controller: App\Controller\Api\CartridgeController::order
     methods: POST
+apiCartridgeById:
+    path: /api/cartridge/{id}
+    controller: App\Controller\Api\CartridgeController::getCartridgeById
+    methods: GET
+apiCartridges:
+    path: /api/cartridges
+    controller: App\Controller\Api\CartridgeController::cartridges
+    methods: GET
 apiPrinterCartridges:
     path: /api/printer/{id}/cartridges
     controller: App\Controller\Api\PrinterController::printerCartridges

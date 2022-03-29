@@ -13,4 +13,10 @@ class NameCartridgeRepository extends EntityRepository
         $dql = "SELECT n,c FROM {$nameCartridgeClass} n JOIN n.colorCartridge c";
         return $this->_em->createQuery($dql)->getResult();
     }
+
+    public function getCartridgeById(int $id)
+    {
+        $nameCartridgeClass = NameCartridge::class;
+        return $this->_em->getRepository($nameCartridgeClass)->find($id);
+    }
 }
