@@ -5,4 +5,4 @@ use App\Config\Doctrine;
 
 require_once "vendor/autoload.php";
 
-return \Doctrine\ORM\Tools\Console\ConsoleRunner::createHelperSet(Doctrine::entityManager());
+return \Doctrine\ORM\Tools\Console\ConsoleRunner::createHelperSet(Doctrine::entityManagerAdvanced());

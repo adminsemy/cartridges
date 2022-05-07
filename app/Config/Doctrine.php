@@ -3,9 +3,9 @@
 namespace App\Config;
 
 use Doctrine\ORM\Configuration;
-use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\AttributeDriver;
+use Doctrine\ORM\ORMSetup;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 
 class Doctrine
@@ -32,7 +32,7 @@ class Doctrine
 
     public static function entityManager()
     {
-        $config = Setup::createAnnotationMetadataConfiguration(
+        $config = ORMSetup::createAnnotationMetadataConfiguration(
             [self::PATH_MODELS],
             self::IS_DEV_MODE,
             self::PROXY_DIR,
