@@ -2,7 +2,6 @@ import { useMemo, useState } from 'react';
 
 export const useSortableData = (items, config = null) => {
     const [sortConfig, setSortConfig] = useState(config);
-    console.log(items)
     const sortedItems = useMemo(() => {
       let sortableItems = [...items];
       if (sortConfig !== null) {

@@ -11,8 +11,6 @@ const CartridgesCount = props => {
     useEffect(() => {
         loadData();
     },[loadData]);
-
-    console.log(table_data);
     if (loading === true) {
         return <Loading/>
     } else {
