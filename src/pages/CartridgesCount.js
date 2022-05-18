@@ -4,8 +4,10 @@ import { Link } from "react-router-dom";
 import { Fragment } from "react";
 import { Loading } from "../components/Loading";
 import { Table } from "../components/tables/CartridgeTable";
+import { connect } from "react-redux";
 
-export const CartridgesCount = () => {
+const CartridgesCount = props => {
+    console.log(props)
     const [cartridges, setCartridges] = useState(
         {
             loading: true,
@@ -52,3 +54,13 @@ export const CartridgesCount = () => {
         )
     }
 }
+const mapStateToProps = state => {
+    return {
+        id: 1
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+
+}
+export default connect(mapStateToProps)(CartridgesCount);
