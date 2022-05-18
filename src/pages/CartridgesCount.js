@@ -8,7 +8,6 @@ import { cartridgesLoad } from "../redux/actions/cartridges/actions";
 
 const CartridgesCount = props => {
     const { loadData, loading, table } = props
-    console.log(props)
     useEffect(() => {
         loadData();
     },[loadData]);
