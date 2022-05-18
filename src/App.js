@@ -5,7 +5,7 @@ import Navigation from './components/Navigation';
 import { Printers } from './pages/Printers';
 import { Alert } from './components/Alert';
 import { AlertState } from './context/alert/AlertState';
-import { Cartridge } from './pages/Cartridge';
+import Cartridge from './pages/Cartridge';
 
 function App()  {
   return (

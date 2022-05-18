@@ -2,10 +2,11 @@ import axios from "axios";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
+import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import { CartridgeForm } from "../components/form/CartridgeForm";
 
-export const Cartridge = () => {
+const Cartridge = props => {
     const params = useParams();
     const id = params.id;
     const [cartridge, setCartridge] = useState(
@@ -64,3 +65,13 @@ export const Cartridge = () => {
         <CartridgeForm cartridge={cartridge.data} colorCartridges={colorCartridges} />
     )
 }
+
+const mapStateToProps = state => {
+    
+}
+
+const mapDispatchToProps = dispatch => {
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cartridge)

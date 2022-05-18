@@ -2,17 +2,23 @@ import { CARTRIDGES_FINISH_LOAD, CARTRIDGES_LOAD_SUCCESS, CARTRIDGES_START_LOAD 
 
 const initialState =  {
     cartridges_loading: false, 
-    cartridges_table: {
-        name: [
-            {id: 'id', name: 'ID'},
-            {id: 'name', name: 'Имя'},
-            {id: 'color', name: 'Цвет'},
-            {id: 'producer', name: 'Бренд'},
-            {id: 'nameExcel', name: 'Имя в Excel'},
-            {id: 'minimum', name: 'Минимум'},
-            {id: 'all', name: 'Всего'},
-        ],
-        data: []
+    cartridges_column_names: [
+        {id: 'id', name: 'ID'},
+        {id: 'name', name: 'Имя'},
+        {id: 'color', name: 'Цвет'},
+        {id: 'producer', name: 'Бренд'},
+        {id: 'nameExcel', name: 'Имя в Excel'},
+        {id: 'minimum', name: 'Минимум'},
+        {id: 'all', name: 'Всего'},
+    ],
+    cartridges_table_data: [],
+    cartridge: {
+        name: null,
+        producer: null,
+        nameExcel: null,
+        color: '',
+        minimum: 0,
+        all: 0
     }
 }
 
@@ -24,10 +30,7 @@ export default function cartrideReducer(state = initialState, action) {
             }
         case CARTRIDGES_LOAD_SUCCESS:
             return {
-                ...state, cartridges_table: { 
-                    ...state.cartridges_table,
-                    data: action.data
-                }
+                ...state, cartridges_table_data: action.data
             }
         case CARTRIDGES_FINISH_LOAD:
             return {

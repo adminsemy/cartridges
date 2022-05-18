@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 import { useSortableData } from "../../userFuncton/useSortableData";
 
 
-export const Table = (value) => {
-    const {table} = value;
-    const { items, requestSort} = useSortableData(table.data);
-    let sortedProducts = [...table.data];
+export const Table = (values) => {
+    const table = values.table_data;
+    const names = values.column_names;
+    const { items, requestSort} = useSortableData(table);
+    let sortedProducts = [...table];
     sortedProducts.sort((a, b) => {
       if (a.name < b.name) {
         return -1;
@@ -23,7 +24,7 @@ export const Table = (value) => {
             <table className="table table-hover table-light">
             <thead>
                 <tr>
-                    {table.name.map(value => {
+                    {names.map(value => {
                         return (
                             <th key={value.id} scope="col">
                                 <button
