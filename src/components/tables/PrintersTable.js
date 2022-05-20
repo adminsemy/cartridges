@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSortableData } from "../../userFuncton/useSortableData";
 import { ModalPrinterCartridges } from "../modal/ModalPrinterCartridges";
@@ -6,6 +6,7 @@ import { ModalPrinterCartridges } from "../modal/ModalPrinterCartridges";
 
 export const Table = (value) => {
     const {table} = value;
+    const [cartridges, setCartridges] = useState(null);
     const { items, requestSort} = useSortableData(table.data);
     return (
         <div>
@@ -17,7 +18,7 @@ export const Table = (value) => {
                             <th key={value.id} scope="col">
                                 <button
                                     type="button"
-                                    onClick={() => {requestSort(value.id)}}
+                                    onClick={() => {requestSort(value.id); setCartridges(null)}}
                                 >
                                 {value.name}
                                 </button>
@@ -41,7 +42,7 @@ export const Table = (value) => {
                             <td>{item.serial}</td>
                             <td>{item.inventory}</td>
                             <td>
-                            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#orderModal" onClick={() => {}}>
+                            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#orderModal" onClick={() => setCartridges(item.id)}>
                                 Заказать картридж
                             </button>
                             </td>
@@ -50,7 +51,7 @@ export const Table = (value) => {
                 })}
             </tbody>
             </table>                                        
-            <ModalPrinterCartridges id={''}></ModalPrinterCartridges>            
+            <ModalPrinterCartridges id={cartridges}></ModalPrinterCartridges>            
         </div>         
     )
 }
