@@ -1,4 +1,4 @@
-import { CARTRIDGES_FINISH_LOAD, CARTRIDGES_LOAD_SUCCESS, CARTRIDGES_START_LOAD } from "../actions/actionsType"
+import { CARTRIDGES_FINISH_LOAD, CARTRIDGES_LOAD_SUCCESS, CARTRIDGES_START_LOAD, CARTRIDGE_LOAD_SUCCESS, CARTRIDGE_NEW } from "../actions/actionsType"
 
 const initialState =  {
     cartridges_loading: false, 
@@ -12,10 +12,10 @@ const initialState =  {
         {id: 'all', name: 'Всего'},
     ],
     cartridges_table_data: [],
-    cartridge: {
-        name: null,
-        producer: null,
-        nameExcel: null,
+    cartridge_data: {
+        name: '',
+        producer: '',
+        nameExcel: '',
         color: '',
         minimum: 0,
         all: 0
@@ -32,11 +32,27 @@ export default function cartrideReducer(state = initialState, action) {
             return {
                 ...state, cartridges_table_data: action.data
             }
+        case CARTRIDGE_LOAD_SUCCESS:
+            return {
+                ...state, cartridge_data: action.data
+            }
         case CARTRIDGES_FINISH_LOAD:
             return {
                 ...state, cartridges_loading: false
             }
+        case CARTRIDGE_NEW:
+            return {
+                ...state,
+                cartridge_data: {
+                    name: '',
+                    producer: '',
+                    nameExcel: '',
+                    color: '',
+                    minimum: 0,
+                    all: 0
+                }
+            }
     default:
-        return initialState
+        return state
     }
 }

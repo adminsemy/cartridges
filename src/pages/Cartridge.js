@@ -5,52 +5,25 @@ import { useEffect } from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import { CartridgeForm } from "../components/form/CartridgeForm";
+import { cartridgeLoad, cartridgeNew } from "../redux/actions/cartridges/actions";
 
 const Cartridge = props => {
+    const {loading, cartridge_data, cartridgeNew, cartridgeLoad} = props;
     const params = useParams();
     const id = params.id;
-    const [cartridge, setCartridge] = useState(
-        {
-            loading: true,
-            data: {
-                name: null,
-                producer: null,
-                nameExcel: null,
-                color: '',
-                minimum: 0,
-                all: 0
-            },
-        }
-    );
+    
     const [colorCartridges, setColorCartridges] = useState([]);
-    useEffect(() => {
-        const host = process.env.REACT_APP_API_HOST_PHP || 'http://localhost:9001';
-        async function getData() {
-            const response = await axios.get(host + '/api/cartridge/' + id);
-            setCartridge(
-            {
-                loading: false, 
-                data: response.data
-            });
-        };
+    
+    useEffect(() => { 
         
         if (id) {
-            getData();
+            cartridgeLoad(id)
         } else {
-            setCartridge(
-                { 
-                    loading: true,
-                    data: {
-                        name: null,
-                        producer: null,
-                        nameExcel: null,
-                        color: '',
-                        minimum: 0,
-                        all: 0
-                    }
-                });
+            cartridgeNew()
         }
-    },[setCartridge, id]);
+    },[id, cartridgeLoad, cartridgeNew]);
+
+    
 
     useEffect(() => {
         const host = process.env.REACT_APP_API_HOST_PHP || 'http://localhost:9001';
@@ -62,19 +35,21 @@ const Cartridge = props => {
     },[setColorCartridges]);
     
     return (
-        <CartridgeForm cartridge={cartridge.data} colorCartridges={colorCartridges} />
+        <CartridgeForm cartridge={cartridge_data} colorCartridges={colorCartridges} />
     )
 }
 
 const mapStateToProps = state => {
     return {
-
+        loading: state.cartridge.cartridges_loading,
+        cartridge_data: state.cartridge.cartridge_data
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        
+        cartridgeNew: () => dispatch(cartridgeNew()),
+        cartridgeLoad: (id) => dispatch(cartridgeLoad(id))
     }
 }
 

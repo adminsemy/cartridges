@@ -1,15 +1,12 @@
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+
 
 export const CartridgeForm = ({cartridge, colorCartridges}) => {
-    
     const [currentCartridge, setCurrentCartridge] = useState(cartridge);
 
     useEffect(() => {
         setCurrentCartridge(cartridge)
     },[cartridge, setCurrentCartridge]);
-
     const handleSubmit = (event) => {
         event.preventDefault();
     }
@@ -19,6 +16,8 @@ export const CartridgeForm = ({cartridge, colorCartridges}) => {
         setCurrentCartridge({...currentCartridge,[target.name]: target.value})
     }
 
+    console.log(cartridge)
+
     return (
         <div>
             <form onSubmit={handleSubmit}>
@@ -27,7 +26,7 @@ export const CartridgeForm = ({cartridge, colorCartridges}) => {
                         name="name"
                         className="form-control"
                         id="cartridgeNameInput"
-                        defaultValue={currentCartridge.name}
+                        value={currentCartridge.name}
                         onChange={changeCurrentCartridge}
                     ></input>
                     <label htmlFor="cartridgeNameInput">Имя картриджа</label>
@@ -37,7 +36,6 @@ export const CartridgeForm = ({cartridge, colorCartridges}) => {
                         name="producer"
                         className="form-control"
                         id="cartridgeProducerInput"
-                        defaultValue={currentCartridge.producer}
                         onChange={changeCurrentCartridge}
                 ></input>
                     <label htmlFor="cartridgeProducerInput">Бренд</label>
@@ -47,7 +45,7 @@ export const CartridgeForm = ({cartridge, colorCartridges}) => {
                         name="nameExcel"
                         className="form-control"
                         id="cartridgeNameExcelInput"
-                        defaultValue={currentCartridge.nameExcel}
+                        value={currentCartridge.nameExcel || ''}
                         onChange={changeCurrentCartridge}
                     ></input>
                     <label htmlFor="cartridgeNameExcelInput">Имя в Excel</label>
