@@ -4,16 +4,16 @@ import { useSortableData } from "../../userFuncton/useSortableData";
 import { ModalPrinterCartridges } from "../modal/ModalPrinterCartridges";
 
 
-export const Table = (value) => {
-    const {table} = value;
+export const Table = (props) => {
+    const {table, nameColumn} = props;
     const [cartridges, setCartridges] = useState(null);
-    const { items, requestSort} = useSortableData(table.data);
+    const { items, requestSort} = useSortableData(table);
     return (
         <div>
             <table className="table table-hover table-light">
             <thead>
                 <tr>
-                    {table.name.map(value => {
+                    {nameColumn.map(value => {
                         return (
                             <th key={value.id} scope="col">
                                 <button

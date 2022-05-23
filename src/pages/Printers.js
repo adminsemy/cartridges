@@ -1,47 +1,39 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux';
 import { Loading } from '../components/Loading';
 import { Table } from '../components/tables/PrintersTable';
+import { printersLoad } from '../redux/actions/printers/actions';
 
-export const Printers = () => {
-    const [printers, setPrinters] = useState(
-        {
-            loading: true,
-            table: {
-                name: [],
-                data: []
-            }
-        });
+const Printers = (props) => {
+    const {loading, printersTableColumnName, printers, printersLoad} = props
 
     useEffect(() => {
-        async function getData() {
-            const host = process.env.REACT_APP_API_HOST_PHP || 'http://localhost:9001';
-            const response = await axios.get(host + '/api/printers');
-            setPrinters(
-            {
-                loading: false, 
-                table: {
-                    name: [
-                        {id: 'id', name: 'ID'},
-                        {id: 'name', name: 'Имя'},
-                        {id: 'cartridges', name: 'Картриджи для принтера'},
-                        {id: 'uin', name: 'UIN'},
-                        {id: 'serial', name: 'Серийный номер'},
-                        {id: 'inventory', name: 'Инвентарный номер'},
-                        {id: 'button', name: 'Действия'},
-                    ],
-                    data: response.data
-                  }
-            });
-        };
-        getData()
-    },[setPrinters]);
+        printersLoad()
+    },[printersLoad]);
 
-    if (printers.loading === true) {
+    if (loading === true) {
         return <Loading />
     } else {
         return (
-            <Table table={printers.table}></Table>
+            <Table table={printers} nameColumn={printersTableColumnName}></Table>
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        loading: state.printer.printers_loading,
+        printersTableColumnName: state.printer.printers_table_column_names,
+        printers: state.printer.printers_table_data
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        printersLoad: () => dispatch(printersLoad())
+    }
+}
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Printers)

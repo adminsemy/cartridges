@@ -2,7 +2,7 @@ import {Routes, Route} from 'react-router-dom';
 import CartridgesCount from './pages/CartridgesCount';
 import { NotFound } from './pages/NotFound';
 import Navigation from './components/Navigation';
-import { Printers } from './pages/Printers';
+import Printers from './pages/Printers';
 import { Alert } from './components/Alert';
 import { AlertState } from './context/alert/AlertState';
 import Cartridge from './pages/Cartridge';
