@@ -26,7 +26,7 @@ const CartridgesCount = props => {
 }
 const mapStateToProps = state => {
     return {
-        loading: state.cartridge.cartridges_loading,
+        loading: state.general.loading,
         table_data: state.cartridge.cartridges_table_data,
         column_names: state.cartridge.cartridges_column_names
     }

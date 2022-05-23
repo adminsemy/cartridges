@@ -48,7 +48,7 @@ const Cartridge = props => {
 
 const mapStateToProps = state => {
     return {
-        loading: state.cartridge.cartridges_loading,
+        loading: state.general.loading,
         cartridge_data: state.cartridge.cartridge_data
     }
 }

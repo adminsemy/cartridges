@@ -1,7 +1,6 @@
 import { PRINTERS_LOAD_SUCCESS } from "../actions/actionsType"
 
 const initialState = {
-    printers_loading: false, 
     printers_table_column_names: [
         {id: 'id', name: 'ID'},
         {id: 'name', name: 'Имя'},

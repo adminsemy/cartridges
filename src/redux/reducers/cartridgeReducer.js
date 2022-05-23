@@ -1,4 +1,4 @@
-import { CARTRIDGES_FINISH_LOAD, CARTRIDGES_LOAD_SUCCESS, CARTRIDGES_START_LOAD, CARTRIDGE_LOAD_SUCCESS, CARTRIDGE_NEW } from "../actions/actionsType"
+import { CARTRIDGES_LOAD_SUCCESS, CARTRIDGE_LOAD_SUCCESS, CARTRIDGE_NEW } from "../actions/actionsType"
 
 const initialState =  {
     cartridges_loading: false, 
@@ -24,10 +24,6 @@ const initialState =  {
 
 export default function cartrideReducer(state = initialState, action) {
     switch (action.type) {
-        case CARTRIDGES_START_LOAD:
-            return {
-                ...state, cartridges_loading: true
-            }
         case CARTRIDGES_LOAD_SUCCESS:
             return {
                 ...state, cartridges_table_data: action.data
@@ -35,10 +31,6 @@ export default function cartrideReducer(state = initialState, action) {
         case CARTRIDGE_LOAD_SUCCESS:
             return {
                 ...state, cartridge_data: action.data
-            }
-        case CARTRIDGES_FINISH_LOAD:
-            return {
-                ...state, cartridges_loading: false
             }
         case CARTRIDGE_NEW:
             return {
