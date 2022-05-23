@@ -22,7 +22,7 @@ const Printers = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        loading: state.printer.printers_loading,
+        loading: state.general.loading,
         printersTableColumnName: state.printer.printers_table_column_names,
         printers: state.printer.printers_table_data
     }

@@ -1,4 +1,4 @@
-import { PRINTERS_FINISH_LOAD, PRINTERS_LOAD_SUCCESS, PRINTERS_START_LOAD } from "../actions/actionsType"
+import { PRINTERS_LOAD_SUCCESS } from "../actions/actionsType"
 
 const initialState = {
     printers_loading: false, 
@@ -19,14 +19,6 @@ const initialState = {
 
 export default function printersReducer(state = initialState, action) {
     switch (action.type) {
-        case PRINTERS_START_LOAD:
-            return {
-                ...state, printers_loading: true
-            }
-        case PRINTERS_FINISH_LOAD:
-            return {
-                ...state, printers_loading: false
-            }
         case PRINTERS_LOAD_SUCCESS:
             return {
                 ...state, printers_table_data: action.data

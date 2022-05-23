@@ -1,29 +1,19 @@
 import axios from "axios";
-import { PRINTERS_FINISH_LOAD, PRINTERS_LOAD_SUCCESS, PRINTERS_START_LOAD } from "../actionsType"
+import { PRINTERS_LOAD_SUCCESS } from "../actionsType"
+import { finishLoad, startLoad } from "../general/actions";
 
 const host = process.env.REACT_APP_API_HOST_PHP || 'http://localhost:9001';
 
 export const printersLoad = () => {
     return async dispatch => {
         try{
-            dispatch(printersLoadStart());
+            dispatch(startLoad());
             const response = await axios.get(host + '/api/printers');
             dispatch(printersLoadSuccess(response.data));
-            dispatch(printersLoadFinish());
+            dispatch(finishLoad());
         }catch(e){
             console.log(e)
         }
-    }
-}
-export const printersLoadStart = () => {
-    return {
-        type: PRINTERS_START_LOAD
-    }
-}
-
-export const printersLoadFinish = () => {
-    return {
-        type: PRINTERS_FINISH_LOAD
     }
 }
 

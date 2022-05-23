@@ -16,6 +16,19 @@ export const cartridgesLoad = () => {
     }
 }
 
+export const cartridgeOrder = () => {
+    return async dispatch => {
+        try {
+            dispatch(cartridgesStartLoading());
+            const response = await axios.get(host + '/api/cartridges');
+            dispatch(cartridgesLoadSuccess(response.data));
+            dispatch(cartridgesFinishLoading());
+        } catch (e) {
+            console.log(e)
+        }
+    }
+}
+
 export const cartridgeLoad = (id) => {
     return async dispatch => {
         try {

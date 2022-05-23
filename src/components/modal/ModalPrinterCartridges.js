@@ -1,10 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useContext } from "react";
+import { connect } from "react-redux";
 import { AlertContext } from "../../context/alert/AlertContext";
 import { Loading } from "../Loading";
 
-export const ModalPrinterCartridges = (props) => {
+const ModalPrinterCartridges = (props) => {
     const {show} = useContext(AlertContext);
     const { id } = props;
     const [cartridges, setCartridges] = useState({
@@ -85,3 +86,17 @@ export const ModalPrinterCartridges = (props) => {
     )
     
 }
+
+const mapStateToProps = state => {
+    return {
+        
+    }
+}
+
+const mapDispatchToProps = state => {
+    return {
+
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ModalPrinterCartridges)
