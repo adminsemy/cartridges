@@ -7,6 +7,7 @@ export const CartridgeForm = ({cartridge, colorCartridges}) => {
     useEffect(() => {
         setCurrentCartridge(cartridge)
     },[cartridge, setCurrentCartridge]);
+
     const handleSubmit = (event) => {
         event.preventDefault();
     }
@@ -25,7 +26,7 @@ export const CartridgeForm = ({cartridge, colorCartridges}) => {
                         className="form-control"
                         id="cartridgeNameInput"
                         value={currentCartridge.name}
-                        onChange={changeCurrentCartridge}
+                        onChange={() => changeCurrentCartridge()}
                     ></input>
                     <label htmlFor="cartridgeNameInput">Имя картриджа</label>
                 </div>
@@ -34,7 +35,7 @@ export const CartridgeForm = ({cartridge, colorCartridges}) => {
                         name="producer"
                         className="form-control"
                         id="cartridgeProducerInput"
-                        onChange={changeCurrentCartridge}
+                        onChange={() => changeCurrentCartridge()}
                 ></input>
                     <label htmlFor="cartridgeProducerInput">Бренд</label>
                 </div>
@@ -44,7 +45,7 @@ export const CartridgeForm = ({cartridge, colorCartridges}) => {
                         className="form-control"
                         id="cartridgeNameExcelInput"
                         value={currentCartridge.nameExcel || ''}
-                        onChange={changeCurrentCartridge}
+                        onChange={() => changeCurrentCartridge()}
                     ></input>
                     <label htmlFor="cartridgeNameExcelInput">Имя в Excel</label>
                 </div>
@@ -54,7 +55,7 @@ export const CartridgeForm = ({cartridge, colorCartridges}) => {
                         className="form-select"
                         id="colorCartridgeSelect"
                         value={currentCartridge.color}
-                        onChange={changeCurrentCartridge}
+                        onChange={() => changeCurrentCartridge()}
                     >
                         {colorCartridges.map((color) => {
                             return (
@@ -68,7 +69,7 @@ export const CartridgeForm = ({cartridge, colorCartridges}) => {
                     </select>
                     <label htmlFor="floatingSelect">Цвет картриджа</label>
                 </div>
-                <button value="Отправить" onClick={changeCurrentCartridge} />
+                <button type="button" className="btn btn-success" onClick={() => handleSubmit()}>Сохранить</button>
             </form>
         </div>
     )

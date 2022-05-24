@@ -1,20 +1,19 @@
-import axios from "axios";
 import React from "react";
-import { useState } from "react";
 import { useEffect } from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Loading } from "../components/Loading";
 import { CartridgeForm } from "../components/form/CartridgeForm";
 import { cartridgeLoad, cartridgeNew } from "../redux/actions/cartridges/actions";
+import { colorCartridgesLoad } from "../redux/actions/colorCartridges/colorCartridgesActions";
 
 const Cartridge = props => {
-    const {loading, cartridge_data, cartridgeNew, cartridgeLoad} = props;
+    const {loading, cartridge_data,
+        cartridgeNew, cartridgeLoad,
+        colorCartridges, colorCartridgesLoad} = props;
     const params = useParams();
     const id = params.id;
-    
-    const [colorCartridges, setColorCartridges] = useState([]);
-    
+       
     useEffect(() => { 
         
         if (id) {
@@ -27,13 +26,8 @@ const Cartridge = props => {
     
 
     useEffect(() => {
-        const host = process.env.REACT_APP_API_HOST_PHP || 'http://localhost:9001';
-        async function getCartridgeColorData() {
-            const response = await axios.get(host + '/api/cartridge/color/all');
-            setColorCartridges(response.data);
-        };            
-        getCartridgeColorData();
-    },[setColorCartridges]);
+        colorCartridgesLoad();
+    },[colorCartridgesLoad]);
     
     if (loading) {
         return (
@@ -49,14 +43,16 @@ const Cartridge = props => {
 const mapStateToProps = state => {
     return {
         loading: state.general.loading,
-        cartridge_data: state.cartridge.cartridge_data
+        cartridge_data: state.cartridge.cartridge_data,
+        colorCartridges: state.colorCartridges.color_cartridges
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         cartridgeNew: () => dispatch(cartridgeNew()),
-        cartridgeLoad: (id) => dispatch(cartridgeLoad(id))
+        cartridgeLoad: (id) => dispatch(cartridgeLoad(id)),
+        colorCartridgesLoad: () => dispatch(colorCartridgesLoad())
     }
 }
 
