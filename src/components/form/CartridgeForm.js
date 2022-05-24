@@ -16,8 +16,6 @@ export const CartridgeForm = ({cartridge, colorCartridges}) => {
         setCurrentCartridge({...currentCartridge,[target.name]: target.value})
     }
 
-    console.log(cartridge)
-
     return (
         <div>
             <form onSubmit={handleSubmit}>

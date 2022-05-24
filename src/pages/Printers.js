@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux';
 import { Loading } from '../components/Loading';
-import { Table } from '../components/tables/PrintersTable';
+import PrintersTable from '../components/tables/PrintersTable';
 import { printersLoad } from '../redux/actions/printers/actions';
 
 const Printers = (props) => {
@@ -15,7 +15,7 @@ const Printers = (props) => {
         return <Loading />
     } else {
         return (
-            <Table table={printers} nameColumn={printersTableColumnName}></Table>
+            <PrintersTable table={printers} nameColumn={printersTableColumnName}></PrintersTable>
         )
     }
 }

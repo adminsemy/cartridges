@@ -1,6 +1,6 @@
 import axios from "axios";
-import { CARTRIDGES_LOAD_SUCCESS, CARTRIDGE_LOAD_SUCCESS, CARTRIDGE_NEW } from "../actionsType"
-import { finishLoad, startLoad } from "../general/actions";
+import { CARTRIDGES_LOAD_SUCCESS, CARTRIDGES_PRINTER_LOAD_SUCCESS, CARTRIDGE_LOAD_SUCCESS, CARTRIDGE_NEW } from "../actionsType"
+import { finishLoad, modalFinishLoad, modalStartLoad, startLoad } from "../general/actions";
 
 const host = process.env.REACT_APP_API_HOST_PHP || 'http://localhost:9001';
 
@@ -43,9 +43,29 @@ export const cartridgeLoad = (id) => {
     }
 }
 
+export const cartridgesPrinter = (printerId) => {
+    return async dispatch => {
+        try {
+            dispatch(modalStartLoad());
+            const response = await axios.get(host + `/api/printer/${printerId}/cartridges`);
+            dispatch(cartridgesPrinterLoadSuccess(response.data));
+            dispatch(modalFinishLoad());
+        } catch (e) {
+            console.log(e)
+        }
+    }
+}
+
 export const cartridgesLoadSuccess = (data) => {
     return {
         type: CARTRIDGES_LOAD_SUCCESS,
+        data        
+    }
+}
+
+export const cartridgesPrinterLoadSuccess = (data) => {
+    return {
+        type: CARTRIDGES_PRINTER_LOAD_SUCCESS,
         data        
     }
 }

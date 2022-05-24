@@ -1,13 +1,19 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { useSortableData } from "../../userFuncton/useSortableData";
 import ModalPrinterCartridges from "../modal/ModalPrinterCartridges";
 
 
-export const Table = (props) => {
-    const {table, nameColumn} = props;
-    const [cartridges, setCartridges] = useState(null);
+const PrintersTable = (props) => {
+    const {table, nameColumn } = props;
+    const [printerId, setPrinterId] = useState(null);
     const { items, requestSort} = useSortableData(table);
+
+    const cartridgesPrinter = (printerId) => {
+        setPrinterId(printerId);
+    }
+
     return (
         <div>
             <table className="table table-hover table-light">
@@ -18,7 +24,7 @@ export const Table = (props) => {
                             <th key={value.id} scope="col">
                                 <button
                                     type="button"
-                                    onClick={() => {requestSort(value.id); setCartridges(null)}}
+                                    onClick={() => {requestSort(value.id); setPrinterId(null)}}
                                 >
                                 {value.name}
                                 </button>
@@ -42,7 +48,7 @@ export const Table = (props) => {
                             <td>{item.serial}</td>
                             <td>{item.inventory}</td>
                             <td>
-                            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#orderModal" onClick={() => setCartridges(item.id)}>
+                            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#orderModal" onClick={() => cartridgesPrinter(item.id)}>
                                 Заказать картридж
                             </button>
                             </td>
@@ -51,7 +57,20 @@ export const Table = (props) => {
                 })}
             </tbody>
             </table>                                        
-            <ModalPrinterCartridges id={cartridges}></ModalPrinterCartridges>            
+            <ModalPrinterCartridges id={printerId}></ModalPrinterCartridges>            
         </div>         
     )
 }
+
+const mapStateToProps = state => {
+    return {
+        
+    }
+}
+const mapDispatchToProps = dispatch => {
+    return {
+    
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(PrintersTable)

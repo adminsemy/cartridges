@@ -1,34 +1,20 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useContext } from "react";
 import { connect } from "react-redux";
 import { AlertContext } from "../../context/alert/AlertContext";
 import { Loading } from "../Loading";
+import { modalStartLoad } from "../../redux/actions/general/actions";
+import { cartridgesPrinter } from "../../redux/actions/cartridges/actions";
 
 const ModalPrinterCartridges = (props) => {
     const {show} = useContext(AlertContext);
-    const { id } = props;
-    const [cartridges, setCartridges] = useState({
-        loading: true, 
-        data: ''
-    });
-    useEffect(() => {  
-        setCartridges({
-            loading: true, 
-            data: ''
-        });      
-        async function getData() {            
-            const host = process.env.REACT_APP_API_HOST_PHP || 'http://localhost:9001';
-            const response = await axios.get(host + `/api/printer/${id}/cartridges`);
-            setCartridges({
-                loading: false, 
-                data: response.data
-            });
-        };
+    const { id, loading, cartridges, cartridgesPrinterLoad } = props;
+    useEffect(() => {
         if (id) {
-            getData();
+            cartridgesPrinterLoad(id);
         }
-    },[id, setCartridges]);
+    },[id, cartridgesPrinterLoad]);
 
     const request = (id, cartridge_id, cartridge_name) => {
         const orderCartridge = async () => {
@@ -51,9 +37,9 @@ const ModalPrinterCartridges = (props) => {
                     </div>
                     <div className="modal-body">
                         <div className="container-fluid">
-                        {cartridges.loading === true 
+                        {loading === true 
                             ?   <Loading />
-                            :   cartridges.data.map(cartridge => {
+                            :   cartridges.map(cartridge => {
                                     return (
                                         <div className="row mt-2 mb-2" key={cartridge.id}>
                                             <div className="col col-lg-8">{cartridge.name}</div>
@@ -89,13 +75,15 @@ const ModalPrinterCartridges = (props) => {
 
 const mapStateToProps = state => {
     return {
-        
+        loading: state.general.modal_loading,
+        cartridges: state.cartridge.cartridges_printer
     }
 }
 
-const mapDispatchToProps = state => {
+const mapDispatchToProps = dispatch => {
     return {
-
+        startLoad: () => dispatch(modalStartLoad()),
+        cartridgesPrinterLoad: printerId => dispatch(cartridgesPrinter(printerId))
     }
 }
 
