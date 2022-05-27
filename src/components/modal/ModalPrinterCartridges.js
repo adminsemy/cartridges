@@ -6,6 +6,7 @@ import { AlertContext } from "../../context/alert/AlertContext";
 import { Loading } from "../Loading";
 import { modalStartLoad } from "../../redux/actions/general/actions";
 import { cartridgesPrinter } from "../../redux/actions/cartridges/actions";
+import { orderCartridge } from "../../redux/actions/cartridges/cartridgesSaveActions";
 
 const ModalPrinterCartridges = (props) => {
     const {show} = useContext(AlertContext);
@@ -16,15 +17,11 @@ const ModalPrinterCartridges = (props) => {
         }
     },[id, cartridgesPrinterLoad]);
 
-    const request = (id, cartridge_id, cartridge_name) => {
-        const orderCartridge = async () => {
-            const host = process.env.REACT_APP_API_HOST_PHP || 'http://localhost:9001';
-            const response = await axios.post(host + `/api/cartridge/order`, {printer_id: id, cartridge_id: cartridge_id});
-            if (response.data.message === 'Success') {
-                show(`${cartridge_name} был успешно заказан`, 'info')
-            }
+    const request = (printer_id, cartridge_id, cartridge_name) => {
+        orderCartridge(printer_id, cartridge_id);
+        if (orderCartridgeSuccess === 'Success') {
+            show(`${cartridge_name} был успешно заказан`, 'info')
         }
-        orderCartridge();
     }
     
     return (
@@ -76,14 +73,16 @@ const ModalPrinterCartridges = (props) => {
 const mapStateToProps = state => {
     return {
         loading: state.general.modal_loading,
-        cartridges: state.cartridge.cartridges_printer
+        cartridges: state.cartridge.cartridges_printer,
+        orderCartridgeSuccess: state.cartridge.cartridge_order_success
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         startLoad: () => dispatch(modalStartLoad()),
-        cartridgesPrinterLoad: printerId => dispatch(cartridgesPrinter(printerId))
+        cartridgesPrinterLoad: printerId => dispatch(cartridgesPrinter(printerId)),
+        orderCartridge: (printerId, cartridgeId) => dispatch(orderCartridge(printerId, cartridgeId))
     }
 }
 
