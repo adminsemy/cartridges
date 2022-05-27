@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useEffect } from "react";
 import { useContext } from "react";
 import { connect } from "react-redux";
@@ -10,7 +9,7 @@ import { orderCartridge } from "../../redux/actions/cartridges/cartridgesSaveAct
 
 const ModalPrinterCartridges = (props) => {
     const {show} = useContext(AlertContext);
-    const { id, loading, cartridges, cartridgesPrinterLoad } = props;
+    const { id, loading, cartridges, cartridgesPrinterLoad, orderCartridge, orderCartridgeSuccess } = props;
     useEffect(() => {
         if (id) {
             cartridgesPrinterLoad(id);
