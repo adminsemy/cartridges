@@ -1,24 +1,28 @@
 import React, { useEffect } from "react";
 import { useContext } from "react";
-import { connect } from "react-redux";
+import { connect, useStore } from "react-redux";
 import { AlertContext } from "../../context/alert/AlertContext";
 import { Loading } from "../Loading";
 import { modalStartLoad } from "../../redux/actions/general/actions";
 import { cartridgesPrinter } from "../../redux/actions/cartridges/actions";
 import { orderCartridge } from "../../redux/actions/cartridges/cartridgesSaveActions";
 
+
 const ModalPrinterCartridges = (props) => {
+    const store = useStore()
     const {show} = useContext(AlertContext);
-    const { id, loading, cartridges, cartridgesPrinterLoad, orderCartridge, orderCartridgeSuccess } = props;
+    const { id, loading, cartridges, cartridgesPrinterLoad, orderCartridge} = props;
+
     useEffect(() => {
         if (id) {
             cartridgesPrinterLoad(id);
         }
+        
     },[id, cartridgesPrinterLoad]);
 
-    const request = (printer_id, cartridge_id, cartridge_name) => {
-        orderCartridge(printer_id, cartridge_id);
-        if (orderCartridgeSuccess === 'Success') {
+    const request = async (printer_id, cartridge_id, cartridge_name) => {
+        await orderCartridge(printer_id, cartridge_id);
+        if (store.getState().cartridge.cartridge_order_success === 'Success') {
             show(`${cartridge_name} был успешно заказан`, 'info')
         }
     }
@@ -72,8 +76,7 @@ const ModalPrinterCartridges = (props) => {
 const mapStateToProps = state => {
     return {
         loading: state.general.modal_loading,
-        cartridges: state.cartridge.cartridges_printer,
-        orderCartridgeSuccess: state.cartridge.cartridge_order_success
+        cartridges: state.cartridge.cartridges_printer
     }
 }
 
