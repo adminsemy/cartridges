@@ -3,11 +3,11 @@ import { useEffect } from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Loading } from "../components/Loading";
-import { CartridgeForm } from "../components/form/CartridgeForm";
 import { cartridgeLoad, cartridgeNew } from "../redux/actions/cartridges/actions";
 import { colorCartridgesLoad } from "../redux/actions/colorCartridges/colorCartridgesActions";
+import CartridgeForm from "../components/form/CartridgeForm";
 
-const Cartridge = props => {
+const CartridgeContainer = props => {
     const {loading, cartridge_data,
         cartridgeNew, cartridgeLoad,
         colorCartridges, colorCartridgesLoad} = props;
@@ -36,7 +36,7 @@ const Cartridge = props => {
     }
 
     return (
-        <CartridgeForm cartridge={cartridge_data} colorCartridges={colorCartridges} />
+        <CartridgeForm initialValues={cartridge_data} colorCartridges={colorCartridges} />
     )
 }
 
@@ -56,4 +56,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Cartridge)
+export default connect(mapStateToProps, mapDispatchToProps)(CartridgeContainer)

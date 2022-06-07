@@ -5,7 +5,7 @@ import Navigation from './components/Navigation';
 import Printers from './pages/Printers';
 import { Alert } from './components/Alert';
 import { AlertState } from './context/alert/AlertState';
-import Cartridge from './pages/Cartridge';
+import CartridgeContainer from './pages/CartridgeContainer';
 
 function App()  {
   return (
@@ -18,8 +18,8 @@ function App()  {
             <Routes>
               <Route path="/" element={<CartridgesCount />} />
               <Route path="/order" element={<Printers />} />
-              <Route path="/cartridge" element={<Cartridge />} />
-              <Route path="/cartridge/:id" element={<Cartridge />} />
+              <Route path="/cartridge" element={<CartridgeContainer />} />
+              <Route path="/cartridge/:id" element={<CartridgeContainer />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>

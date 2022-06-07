@@ -1,61 +1,46 @@
-import React, { useEffect, useState } from "react";
+import { Field } from "redux-form";
+import { reduxForm } from "redux-form";
 
 
-export const CartridgeForm = ({cartridge, colorCartridges}) => {
-    const [currentCartridge, setCurrentCartridge] = useState(cartridge);
-
-    useEffect(() => {
-        setCurrentCartridge(cartridge)
-    },[cartridge, setCurrentCartridge]);
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-    }
-
-    const changeCurrentCartridge = (event) => {
-        const target = event.target;
-        setCurrentCartridge({...currentCartridge,[target.name]: target.value})
-    }
+let CartridgeForm = (props) => {
+    const {colorCartridges} = props
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
+            <form>
                 <div className="form-floating">
-                    <input type="text"
+                    <Field type="text"
                         name="name"
                         className="form-control"
-                        id="cartridgeNameInput"
-                        value={currentCartridge.name}
-                        onChange={() => changeCurrentCartridge()}
-                    ></input>
+                        id="cartridgeNameInput"                        
+                        component="input"
+                    ></Field>
                     <label htmlFor="cartridgeNameInput">Имя картриджа</label>
                 </div>
                 <div className="form-floating">
-                    <input type="text"
+                    <Field type="text"
                         name="producer"
                         className="form-control"
-                        id="cartridgeProducerInput"
-                        onChange={() => changeCurrentCartridge()}
-                ></input>
+                        id="cartridgeProducerInput"                        
+                        component="input"
+                ></Field>
                     <label htmlFor="cartridgeProducerInput">Бренд</label>
                 </div>
                 <div className="form-floating">
-                    <input type="text"
+                    <Field type="text"
                         name="nameExcel"
                         className="form-control"
                         id="cartridgeNameExcelInput"
-                        value={currentCartridge.nameExcel || ''}
-                        onChange={() => changeCurrentCartridge()}
-                    ></input>
+                        component="input"
+                    ></Field>
                     <label htmlFor="cartridgeNameExcelInput">Имя в Excel</label>
                 </div>
                 <div className="form-floating">
-                    <select 
+                    <Field 
                         name="color"
                         className="form-select"
                         id="colorCartridgeSelect"
-                        value={currentCartridge.color}
-                        onChange={() => changeCurrentCartridge()}
+                        component="select"
                     >
                         {colorCartridges.map((color) => {
                             return (
@@ -66,11 +51,17 @@ export const CartridgeForm = ({cartridge, colorCartridges}) => {
                                 ></option>
                             )
                         })}
-                    </select>
+                        
+                    </Field>
                     <label htmlFor="floatingSelect">Цвет картриджа</label>
                 </div>
-                <button type="button" className="btn btn-success" onClick={() => handleSubmit()}>Сохранить</button>
+                <button type="button" className="btn btn-success" >Сохранить</button>
             </form>
         </div>
     )
 }
+
+CartridgeForm = reduxForm({form: 'Cartridge'})(CartridgeForm)
+
+
+export default CartridgeForm
