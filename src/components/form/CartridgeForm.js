@@ -39,6 +39,25 @@ let CartridgeForm = (props) => {
                     <label htmlFor="cartridgeNameExcelInput">Имя в Excel</label>
                 </div>
                 <div className="form-floating">
+                    <Field type="text"
+                        name="minimum"
+                        className="form-control"
+                        id="cartridgeNameExcelInput"
+                        component="input"
+                    ></Field>
+                    <label htmlFor="cartridgeNameExcelInput">Минимум должно быть на складе</label>
+                </div>
+                <div className="form-floating">
+                    <Field type="text"
+                        name="all"
+                        className="form-control"
+                        id="cartridgeNameExcelInput"
+                        component="input"
+                        disabled
+                    ></Field>
+                    <label htmlFor="cartridgeNameExcelInput">Всего</label>
+                </div>
+                <div className="form-floating">
                     <Field 
                         name="color"
                         className="form-select"

@@ -1,24 +1,36 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useEffect } from "react";
-import { connect } from "react-redux";
+import { connect, useStore } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { Loading } from "../components/Loading";
 import { cartridgeLoad } from "../redux/actions/cartridges/actions";
 import { colorCartridgesLoad } from "../redux/actions/colorCartridges/colorCartridgesActions";
 import CartridgeForm from "../components/form/CartridgeForm";
+import { saveCartridge } from "../redux/actions/cartridges/cartridgesSaveActions";
+import { AlertContext } from "../context/alert/AlertContext";
 
 const CartridgeContainer = props => {
+    const store = useStore();
+    const {show} = useContext(AlertContext);
     const navigate = useNavigate();
-    const {loading, cartridge_data,
+    const {loading,
+        cartridge_data,
         cartridgeLoad,
-        colorCartridges, colorCartridgesLoad} = props;
+        colorCartridges,
+        colorCartridgesLoad,
+        saveCartridge} = props;
         
     const params = useParams();
 
     const id = params.id;
-    const handleSubmit = (value) => {
-        console.log(value)
-        navigate("/")
+    const handleSubmit = async (cartridge) => {
+        await saveCartridge(cartridge);
+        if (store.getState().cartridge.cartridge_save_success === 'Success') {
+            const cartridgeName = store.getState().cartridge.cartridge_data.name
+            show(`Картридж ${cartridgeName} был успешно сохранен`, 'info')
+        }
+        console.log(cartridge)
+        //navigate("/")
     }
    
     useEffect(() => {         
@@ -53,7 +65,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         cartridgeLoad: (id) => dispatch(cartridgeLoad(id)),
-        colorCartridgesLoad: () => dispatch(colorCartridgesLoad())
+        colorCartridgesLoad: () => dispatch(colorCartridgesLoad()),
+        saveCartridge: (cartridge) => dispatch(saveCartridge(cartridge))
     }
 }
 

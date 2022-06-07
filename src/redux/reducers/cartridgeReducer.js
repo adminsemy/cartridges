@@ -1,4 +1,4 @@
-import { CARTRIDGES_LOAD_SUCCESS, CARTRIDGES_PRINTER_LOAD_SUCCESS, CARTRIDGE_LOAD_SUCCESS, CARTRIDGE_NEW, CARTRIDGE_ORDER_SUCCESS } from "../actions/actionsType"
+import { CARTRIDGES_LOAD_SUCCESS, CARTRIDGES_PRINTER_LOAD_SUCCESS, CARTRIDGE_LOAD_SUCCESS, CARTRIDGE_NEW, CARTRIDGE_ORDER_SUCCESS, CARTRIDGE_SAVE_SUCCESS } from "../actions/actionsType"
 
 const initialState =  {
     cartridges_loading: false, 
@@ -23,7 +23,8 @@ const initialState =  {
     cartridges_printer: [
         {id:'', name: ''}
     ],
-    cartridge_order_success: ''
+    cartridge_order_success: '',
+    cartridge_save_success: ''
 }
 
 export default function cartrideReducer(state = initialState, action) {
@@ -55,6 +56,10 @@ export default function cartrideReducer(state = initialState, action) {
         case CARTRIDGE_ORDER_SUCCESS:
             return {
                 ...state, cartridge_order_success: action.message
+            }
+        case CARTRIDGE_SAVE_SUCCESS:
+            return {
+                ...state, cartridge_save_success: action.message
             }
     default:
         return state
