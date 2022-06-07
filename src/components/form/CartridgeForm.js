@@ -3,11 +3,14 @@ import { reduxForm } from "redux-form";
 
 
 let CartridgeForm = (props) => {
-    const {colorCartridges} = props
+    const {handleSubmit, 
+        colorCartridges,
+        pristine,
+        submitting} = props
 
     return (
         <div>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div className="form-floating">
                     <Field type="text"
                         name="name"
@@ -42,6 +45,7 @@ let CartridgeForm = (props) => {
                         id="colorCartridgeSelect"
                         component="select"
                     >
+                        <option disabled value="">Выберите цвет</option>
                         {colorCartridges.map((color) => {
                             return (
                                 <option 
@@ -50,12 +54,11 @@ let CartridgeForm = (props) => {
                                     label={color.name}
                                 ></option>
                             )
-                        })}
-                        
+                        })}                        
                     </Field>
                     <label htmlFor="floatingSelect">Цвет картриджа</label>
                 </div>
-                <button type="button" className="btn btn-success" >Сохранить</button>
+                <button type="submit" className="btn btn-success" disabled={pristine || submitting}>Сохранить</button>
             </form>
         </div>
     )

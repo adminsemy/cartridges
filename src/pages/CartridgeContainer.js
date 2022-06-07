@@ -1,29 +1,31 @@
 import React from "react";
 import { useEffect } from "react";
 import { connect } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Loading } from "../components/Loading";
-import { cartridgeLoad, cartridgeNew } from "../redux/actions/cartridges/actions";
+import { cartridgeLoad } from "../redux/actions/cartridges/actions";
 import { colorCartridgesLoad } from "../redux/actions/colorCartridges/colorCartridgesActions";
 import CartridgeForm from "../components/form/CartridgeForm";
 
 const CartridgeContainer = props => {
+    const navigate = useNavigate();
     const {loading, cartridge_data,
-        cartridgeNew, cartridgeLoad,
+        cartridgeLoad,
         colorCartridges, colorCartridgesLoad} = props;
-    const params = useParams();
-    const id = params.id;
-       
-    useEffect(() => { 
         
+    const params = useParams();
+
+    const id = params.id;
+    const handleSubmit = (value) => {
+        console.log(value)
+        navigate("/")
+    }
+   
+    useEffect(() => {         
         if (id) {
             cartridgeLoad(id)
-        } else {
-            cartridgeNew()
         }
-    },[id, cartridgeLoad, cartridgeNew]);
-
-    
+    },[id, cartridgeLoad]);    
 
     useEffect(() => {
         colorCartridgesLoad();
@@ -36,7 +38,7 @@ const CartridgeContainer = props => {
     }
 
     return (
-        <CartridgeForm initialValues={cartridge_data} colorCartridges={colorCartridges} />
+        <CartridgeForm onSubmit={handleSubmit} initialValues={cartridge_data} colorCartridges={colorCartridges} />
     )
 }
 
@@ -50,7 +52,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        cartridgeNew: () => dispatch(cartridgeNew()),
         cartridgeLoad: (id) => dispatch(cartridgeLoad(id)),
         colorCartridgesLoad: () => dispatch(colorCartridgesLoad())
     }

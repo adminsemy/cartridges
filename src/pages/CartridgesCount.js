@@ -4,10 +4,10 @@ import { Fragment } from "react";
 import { Loading } from "../components/Loading";
 import { Table } from "../components/tables/CartridgeTable";
 import { connect } from "react-redux";
-import { cartridgesLoad } from "../redux/actions/cartridges/actions";
+import { cartridgeNew, cartridgesLoad } from "../redux/actions/cartridges/actions";
 
 const CartridgesCount = props => {
-    const { loadData, loading, table_data, column_names } = props
+    const { loadData, loading, table_data, column_names, cartridgeNew } = props
     useEffect(() => {
         loadData();
     },[loadData]);
@@ -17,7 +17,7 @@ const CartridgesCount = props => {
         return (
             <Fragment>
                 <Link to={'/cartridge'}>
-                    <button type="button" className="btn btn-primary">Новый картридж</button>
+                    <button type="button" className="btn btn-primary" onClick={() => cartridgeNew()}>Новый картридж</button>
                 </Link>
                 <Table table_data={ table_data } column_names={column_names}></Table>
             </Fragment>
@@ -34,6 +34,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        cartridgeNew: () => dispatch(cartridgeNew()),
         loadData: () => dispatch(cartridgesLoad())
     }
 }
