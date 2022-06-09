@@ -6,9 +6,8 @@ use App\Config\Doctrine;
 use App\Model\ColorCartridge;
 use App\Model\NameCartridge;
 use Exception;
-use OutOfBoundsException;
 
-class SaveCartridgeInsertData
+class NewCartridgeInsertData
 {
     private $nameCartridge;
 
@@ -16,25 +15,24 @@ class SaveCartridgeInsertData
 
     public function __construct()
     {
+        $this->nameCartridge = new NameCartridge;
         $this->entityManager = Doctrine::entityManagerAdvanced();
     }
 
     public function addData(array $cartridge)
     {
-        if ($cartridge['id']) {
-            $this->nameCartridge = $this->findCartridge((int)$cartridge['id']);
-        } else {
-            throw new OutOfBoundsException("Не найден элемент с ключом 'id'");
-        }
-        $colorCartridge = $this->findColorCartridge((int)$cartridge['color']);
-        
+        $colorCartridge = $this->findColorCartridge($cartridge['color'] ?? 1);
+
         $this->nameCartridge->setBrand($cartridge['name']);
         $this->nameCartridge->setNameExcel($cartridge['nameExcel']);
-        $this->nameCartridge->setDescription($cartridge['description']);
+        $this->nameCartridge->setDescription($cartridge['description'] ?? 'Нет описания');
         $this->nameCartridge->setProducer($cartridge['producer']);
         $this->nameCartridge->setMinimum($cartridge['minimum']);
+        $this->nameCartridge->setAll(0);
         $this->nameCartridge->setColorCartridge($colorCartridge);
+
         $this->entityManager->persist($this->nameCartridge);
+
         return $this;
     }
 
@@ -42,16 +40,7 @@ class SaveCartridgeInsertData
     {
         return $this->entityManager->flush();
     }
-
-    private function findCartridge($idCartridge)
-    {
-        $cartridge = $this->entityManager->find(NameCartridge::class, $idCartridge);
-        if ($cartridge === null) {
-            return throw new Exception("Принтер с id {$idCartridge} не найден", 1);
-        }
-        return $cartridge;
-    }
-
+    
     private function findColorCartridge($idColorCartridge)
     {
         $colorCartridge = $this->entityManager->find(ColorCartridge::class, $idColorCartridge);

@@ -10,7 +10,6 @@ use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToMany;
-use Doctrine\ORM\Mapping\OneToOne;
 use Doctrine\ORM\Mapping\Table;
 
 #[Entity(repositoryClass: NameCartridgeRepository::class)]
@@ -19,7 +18,7 @@ class NameCartridge
 {
     #[Id]
     #[Column(type: 'integer')]
-    #[GeneratedValue()]
+    #[GeneratedValue('AUTO')]
     private int $id;
 
     #[Column(
@@ -59,10 +58,10 @@ class NameCartridge
     private ColorCartridge $colorCartridge;
 
     #[Column(
-        name: 'all',
+        name: '`all`',
         type: 'integer',
         length: 11,
-        options: ['default' => 1]
+        options: ['default' => 1, 'unsigned' => true]
     )]
     private int $all = 1;
    
