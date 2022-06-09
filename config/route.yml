@@ -6,6 +6,14 @@ apiOrderCartridge:
     path: /api/cartridge/order
     controller: App\Controller\Api\CartridgeController::order
     methods: POST
+apiSaveCartridge:
+    path: /api/cartridge/save
+    controller: App\Controller\Api\CartridgeController::save
+    methods: POST
+apiNewCartridge:
+    path: /api/cartridge/save
+    controller: App\Controller\Api\CartridgeController::new
+    methods: PUT
 apiCartridgeById:
     path: /api/cartridge/{id}
     controller: App\Controller\Api\CartridgeController::getCartridgeById

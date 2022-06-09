@@ -4,6 +4,7 @@ namespace App\Controller\Api;
 use App\Service\Data\CartridgeData;
 use App\Service\Data\JsonData;
 use App\Service\InsertData\OrderCartridgeInsertData;
+use App\Service\InsertData\SaveCartridgeInsertData;
 use App\Service\Response\JSON\CartridgeJson;
 use App\Service\Response\JSON\ResponseJson;
 use Exception;
@@ -31,6 +32,22 @@ class CartridgeController
             $order = new OrderCartridgeInsertData();
             $order->addData($data, new \DateTimeImmutable())->save();
             $response->addParametres('Order cartridge', 'Success');
+            $response->send();
+        } catch (Exception $e) {
+            $response->addParametres('Order cartridge', $e->getMessage(), $e->getCode());
+        }
+    }
+     /**
+     * @Route("/api/cartridge/save", name="apiSaveCartridge")
+     */
+    public function save()
+    {
+        $response = new ResponseJson();
+        try {
+            $data = (new JsonData())->input()->getData();
+            $save = new SaveCartridgeInsertData;
+            $save->addData($data, new \DateTimeImmutable())->save();
+            $response->addParametres('Save cartridge', 'Success');
             $response->send();
         } catch (Exception $e) {
             $response->addParametres('Order cartridge', $e->getMessage(), $e->getCode());

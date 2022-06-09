@@ -16,7 +16,7 @@ export const orderCartridge = (printerId, cartridgeId) => {
 export const saveCartridge = (cartridge) => {
     return async dispatch => {
         try {
-            const response = await axios.post(host + `/api/cartridge/save`, {cartridge});
+            const response = await axios.post(host + `/api/cartridge/save`, {...cartridge});
             dispatch(saveCartridgeSuccess(response.data.message))
         } catch (e) {
             console.log(e)
