@@ -6,6 +6,7 @@ import Printers from './pages/Printers';
 import { Alert } from './components/Alert';
 import { AlertState } from './context/alert/AlertState';
 import CartridgeContainer from './pages/CartridgeContainer';
+import PrinterContainer from './pages/PrinterContainer';
 
 function App()  {
   return (
@@ -17,7 +18,8 @@ function App()  {
             <Alert/>            
             <Routes>
               <Route path="/" element={<CartridgesCount />} />
-              <Route path="/order" element={<Printers />} />
+              <Route path="/printers" element={<Printers />} />
+              <Route path="/printer/:id" element={<PrinterContainer />} />
               <Route path="/cartridge" element={<CartridgeContainer />} />
               <Route path="/cartridge/:id" element={<CartridgeContainer />} />
               <Route path="*" element={<NotFound />} />

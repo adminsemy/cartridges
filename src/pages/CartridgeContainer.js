@@ -38,7 +38,7 @@ const CartridgeContainer = props => {
                 show(`Картридж ${cartridgeName} был успешно сохранен`, 'info')
             }
         }
-        //navigate("/")
+        navigate("/")
     }
    
     useEffect(() => {         
